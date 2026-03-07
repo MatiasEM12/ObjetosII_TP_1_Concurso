@@ -11,6 +11,7 @@ public class Concurso {
     private LocalDate fechaInicioInscripcion;
     private LocalDate fechaFinInscripcion;
 
+    private static final int PUNTOS_PRIMER_DIA = 10;
 
 
     public Concurso(String nombre, LocalDate fechaInicioInscripcion, LocalDate fechaFinInscripcion) {
@@ -48,9 +49,12 @@ public class Concurso {
         validarPeridoInscripcion(inscripcion);
         this.inscriptos.add(inscripcion);
 
-
+       // if(esInscriptoPrimerDia(inscripcion)) inscripcion.getParticipante().agregarPuntos(PUNTOS_PRIMER_DIA);
     }
 
+    private Boolean esInscriptoPrimerDia(Inscripcion inscripcion){
+        return inscripcion.getFechaInscripcion().isEqual(this.fechaInicioInscripcion);
+    }
 
     //VALIDACIONES
     private void validarNombre(String nombre){
