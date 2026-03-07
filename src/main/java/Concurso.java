@@ -38,6 +38,12 @@ public class Concurso {
 
     public void agregarInscripcion(Inscripcion inscripcion){
 
+        if (!validarInscripcion(inscripcion)){
+            //System.out.println("La inscripción no es válida o ya existe.");
+             throw new IllegalArgumentException("La inscripción no es válida o ya existe.");
+        }
+
+
         if(validarPeridoInscripcion(inscripcion)){
             this.inscriptos.add(inscripcion);
         }else{
@@ -52,6 +58,10 @@ public class Concurso {
         return inscripcion.getFechaInscripcion().isAfter(this.fechaInicioInscripcion) &&
                 inscripcion.getFechaInscripcion().isBefore(this.fechaFinInscripcion);
 
+    }
+
+    private Boolean validarInscripcion(Inscripcion inscripcion){
+        return (inscripcion != null) && (!this.inscriptos.contains(inscripcion));
     }
 
 
