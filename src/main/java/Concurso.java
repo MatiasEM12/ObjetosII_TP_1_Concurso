@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Concurso {
 
-    private final String nombre;
+    private String nombre;
     private ArrayList<Inscripcion> inscriptos;
     private LocalDate fechaInicioInscripcion;
     private LocalDate fechaFinInscripcion;
