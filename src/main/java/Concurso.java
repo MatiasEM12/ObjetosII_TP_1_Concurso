@@ -49,7 +49,7 @@ public class Concurso {
         validarPeridoInscripcion(inscripcion);
         this.inscriptos.add(inscripcion);
 
-       // if(esInscriptoPrimerDia(inscripcion)) inscripcion.getParticipante().agregarPuntos(PUNTOS_PRIMER_DIA);
+       if(esInscriptoPrimerDia(inscripcion)) inscripcion.getParticipante().agregarPuntos(PUNTOS_PRIMER_DIA);
     }
 
     private Boolean esInscriptoPrimerDia(Inscripcion inscripcion){
