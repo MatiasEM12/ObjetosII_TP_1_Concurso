@@ -6,6 +6,10 @@ public class Inscripcion {
     private LocalDate fechaInscripcion;
 
     public Inscripcion(Participante participante, LocalDate fechaInscripcion) {
+
+        validarFechaInscripcion( fechaInscripcion);
+        validarParticipante(participante);
+
         this.participante = participante;
         this.fechaInscripcion = fechaInscripcion;
     }
@@ -16,5 +20,14 @@ public class Inscripcion {
 
     public LocalDate getFechaInscripcion() {
         return fechaInscripcion;
+    }
+
+    //VALIDACIONES
+    private void validarParticipante(Participante participante){
+        if(participante == null) throw new RuntimeException("El participante no puede ser nulo.");
+    }
+
+    private void validarFechaInscripcion(LocalDate fechaInscripcion){
+        if(fechaInscripcion == null) throw new RuntimeException("La fecha de inscripción no puede ser nula.");
     }
 }
