@@ -7,7 +7,7 @@ public class Participante {
 
     private String nombre;
     private String dni;
-    private int puntos;
+
     private ArrayList<Puntaje> puntajes;
 
     public Participante( String nombre, String dni) {
@@ -17,20 +17,10 @@ public class Participante {
 
         this.nombre = nombre;
         this.dni = dni;
-        this.puntos = 0;
         this.puntajes = new ArrayList<>();
     }
 
-    public Participante (String nombre, String dni, int puntos) {
 
-        validarNombre(nombre);
-        validarDni(dni);
-        validarPuntos(puntos);
-
-        this.nombre = nombre;
-        this.dni = dni;
-        this.puntos = puntos;
-    }
 
     public String getNombre() {
         return nombre;
@@ -40,9 +30,7 @@ public class Participante {
         return dni;
     }
 
-    public int getPuntos() {
-        return puntos;
-    }
+
 
     public void agregarPuntos(int puntos, String nombreConcurso) {
         validarPuntos(puntos);

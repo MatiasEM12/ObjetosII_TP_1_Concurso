@@ -3,7 +3,7 @@ package Entities;
 public class Puntaje {
 
     private String nombreConcurso;
-    private int puntos;
+    private Integer puntos;
 
     public Puntaje(String nombreConcurso, int puntos) {
 
@@ -21,7 +21,7 @@ public class Puntaje {
         return puntos;
     }
 
-     public void agregarPuntos(int puntos) {
+     public void agregarPuntos(Integer puntos) {
 
         validarPuntos(puntos);
         this.puntos += puntos;
