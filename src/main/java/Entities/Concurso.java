@@ -52,7 +52,7 @@ public class Concurso {
 
         this.inscriptos.add(inscripcion);
 
-        if(esInscriptoPrimerDia(inscripcion)) inscripcion.getParticipante().agregarPuntos(PUNTOS_PRIMER_DIA);
+        if(esInscriptoPrimerDia(inscripcion)) inscripcion.getParticipante().agregarPuntos(PUNTOS_PRIMER_DIA,this.nombre);
     }
 
     private Boolean esInscriptoPrimerDia(Inscripcion inscripcion){

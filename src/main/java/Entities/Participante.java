@@ -1,12 +1,14 @@
 package Entities;
 
+import java.util.ArrayList;
 import java.util.Objects;
-
+import java.util.Arrays;
 public class Participante {
 
     private String nombre;
     private String dni;
     private int puntos;
+    private ArrayList<Puntaje> puntajes;
 
     public Participante( String nombre, String dni) {
 
@@ -16,6 +18,7 @@ public class Participante {
         this.nombre = nombre;
         this.dni = dni;
         this.puntos = 0;
+        this.puntajes = new ArrayList<>();
     }
 
     public Participante (String nombre, String dni, int puntos) {
@@ -41,10 +44,26 @@ public class Participante {
         return puntos;
     }
 
-    public void agregarPuntos(int puntos) {
+    public void agregarPuntos(int puntos, String nombreConcurso) {
         validarPuntos(puntos);
-        this.puntos += puntos;
+        validarNombre(nombreConcurso);
+
+        Puntaje puntajeExistente = puntajes.stream()
+            .filter(p -> p.getNombreConcurso().equals(nombreConcurso))
+            .findFirst()
+            .orElse(null);
+
+        if (puntajeExistente != null) {
+            puntajeExistente.agregarPuntos(puntos);
+        } else {
+            Puntaje nuevoPuntaje = new Puntaje(nombreConcurso, puntos);
+            puntajes.add(nuevoPuntaje);
+        }
+
+
     }
+
+
 
     //VALIDACIONES
     private void validarNombre(String nombre){
