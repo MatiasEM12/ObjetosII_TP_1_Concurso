@@ -1,5 +1,7 @@
 package Entities;
 
+import java.util.Objects;
+
 public class Participante {
 
     private String nombre;
@@ -57,5 +59,15 @@ public class Participante {
         if(puntos == null )throw new RuntimeException("Los puntos no pueden ser null.");
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Participante that)) return false;
+        return Objects.equals(dni, that.dni);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(dni);
+    }
 }

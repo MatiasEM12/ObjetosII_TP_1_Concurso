@@ -43,18 +43,26 @@ public class Concurso {
         return fechaFinInscripcion;
     }
 
-    public void agregarInscripcion(Inscripcion inscripcion) {
+    public void nuevaInscripcion(Inscripcion inscripcion) {
 
         validarInscripcion(inscripcion);
         validarPeridoInscripcion(inscripcion);
+
+        if(participanteInscripto(inscripcion.getParticipante()))   throw new IllegalArgumentException("El participante se encuentra inscripto");;
+
         this.inscriptos.add(inscripcion);
 
-       if(esInscriptoPrimerDia(inscripcion)) inscripcion.getParticipante().agregarPuntos(PUNTOS_PRIMER_DIA);
+        if(esInscriptoPrimerDia(inscripcion)) inscripcion.getParticipante().agregarPuntos(PUNTOS_PRIMER_DIA);
     }
 
     private Boolean esInscriptoPrimerDia(Inscripcion inscripcion){
         return inscripcion.getFechaInscripcion().isEqual(this.fechaInicioInscripcion);
     }
+
+    public boolean participanteInscripto(Participante participante) {
+        return this.inscriptos.stream().anyMatch(inscripcion -> inscripcion.getParticipante().equals(participante));
+    }
+
 
     //VALIDACIONES
     private void validarNombre(String nombre){
@@ -94,7 +102,6 @@ public class Concurso {
         };
 
     }
-
     private void validarInscripcion(Inscripcion inscripcion){
         if( (inscripcion != null) && (!this.inscriptos.contains(inscripcion)) ){
             //System.out.println("La inscripción no es válida o ya existe.");
@@ -105,4 +112,3 @@ public class Concurso {
 
 
 }
-
