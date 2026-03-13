@@ -2,25 +2,26 @@ package Entities;
 
 public class Puntaje {
 
-    private String nombreConcurso;
+    private Concurso concurso;
     private Integer puntos;
 
-    public Puntaje(String nombreConcurso, int puntos) {
+    public Puntaje(Concurso concurso, Integer puntos) {
 
-        validarNombreConcurso( nombreConcurso);
+        validarConcurso( concurso);
         validarPuntos(puntos);
-        this.nombreConcurso = nombreConcurso;
+        this.concurso=( concurso);
         this.puntos = puntos;
     }
 
-    public String getNombreConcurso() {
-        return nombreConcurso;
-    }
 
-    public int getPuntos() {
+    public Integer getPuntos() {
         return puntos;
     }
 
+    public Concurso getConcurso() {
+        return concurso;
+
+    }
      public void agregarPuntos(Integer puntos) {
 
         validarPuntos(puntos);
@@ -28,9 +29,9 @@ public class Puntaje {
     }
 
     //VALIDACIONES
-        private void validarNombreConcurso(String nombreConcurso) {
-            if (nombreConcurso == null || nombreConcurso.trim().isEmpty()) {
-                throw new IllegalArgumentException("El nombre del concurso no puede ser nulo o vacío.");
+        private void validarConcurso(Concurso concurso) {
+            if (concurso == null ) {
+                throw new IllegalArgumentException("El concurso no puede ser nulo.");
             }
         }
 

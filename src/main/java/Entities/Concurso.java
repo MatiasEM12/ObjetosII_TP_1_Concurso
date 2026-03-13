@@ -11,7 +11,7 @@ public class Concurso {
     private LocalDate fechaInicioInscripcion;
     private LocalDate fechaFinInscripcion;
 
-    private static final int PUNTOS_PRIMER_DIA = 10;
+    private static final Integer PUNTOS_PRIMER_DIA = 10;
 
 
     public Concurso(String nombre, LocalDate fechaInicioInscripcion, LocalDate fechaFinInscripcion) {
@@ -31,9 +31,6 @@ public class Concurso {
         return nombre;
     }
 
-    public ArrayList<Inscripcion> getInscriptos() {
-        return inscriptos;
-    }
 
     public LocalDate getFechaInicioInscripcion() {
         return fechaInicioInscripcion;
@@ -48,18 +45,21 @@ public class Concurso {
         validarInscripcion(inscripcion);
         validarPeridoInscripcion(inscripcion);
 
-        if(participanteInscripto(inscripcion.getParticipante()))   throw new IllegalArgumentException("El participante se encuentra inscripto");;
+        if(estaInscripto(inscripcion.getParticipante()))   throw new IllegalArgumentException("El participante se encuentra inscripto");;
 
         this.inscriptos.add(inscripcion);
 
-        if(esInscriptoPrimerDia(inscripcion)) inscripcion.getParticipante().agregarPuntos(PUNTOS_PRIMER_DIA,this.nombre);
+        if(esInscriptoPrimerDia(inscripcion)) inscripcion.agregarPuntos(PUNTOS_PRIMER_DIA,this.nombre);
     }
 
     private Boolean esInscriptoPrimerDia(Inscripcion inscripcion){
+        validarInscripcion(inscripcion);
+
         return inscripcion.getFechaInscripcion().isEqual(this.fechaInicioInscripcion);
     }
 
-    public boolean participanteInscripto(Participante participante) {
+    public boolean estaInscripto(Participante participante) {
+        validarParticipante(participante);
         return this.inscriptos.stream().anyMatch(inscripcion -> inscripcion.getParticipante().equals(participante));
     }
 
@@ -106,6 +106,12 @@ public class Concurso {
         if( (inscripcion != null) && (!this.inscriptos.contains(inscripcion)) ){
             //System.out.println("La inscripción no es válida o ya existe.");
             throw new IllegalArgumentException("La inscripción no es válida o ya existe.");
+
+        };
+    }
+    private void validarParticipante(Participante participante){
+        if(participante == null){
+            throw new IllegalArgumentException("El participante no puede ser nulo.");
 
         };
     }
