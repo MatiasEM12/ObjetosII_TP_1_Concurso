@@ -14,11 +14,12 @@ public class Inscripcion {
 
         this.participante = participante;
         this.fechaInscripcion = fechaInscripcion;
+
     }
-    public void agregarPuntos(Integer puntosPrimerDia, String nombreConcurso) {
+    public void agregarPuntos(Integer puntosPrimerDia, Concurso concurso) {
 
 
-        this.participante.agregarPuntos(puntosPrimerDia, nombreConcurso);
+        this.participante.agregarPuntos(puntosPrimerDia, concurso);
 
     }
     public Participante getParticipante() {

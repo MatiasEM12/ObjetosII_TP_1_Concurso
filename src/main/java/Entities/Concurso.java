@@ -11,7 +11,7 @@ public class Concurso {
     private LocalDate fechaInicioInscripcion;
     private LocalDate fechaFinInscripcion;
 
-    private static final Integer PUNTOS_PRIMER_DIA = 10;
+    public static final Integer PUNTOS_PRIMER_DIA = 10;
 
 
     public Concurso(String nombre, LocalDate fechaInicioInscripcion, LocalDate fechaFinInscripcion) {
@@ -27,18 +27,7 @@ public class Concurso {
         this.fechaFinInscripcion = fechaFinInscripcion;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
-
-    public LocalDate getFechaInicioInscripcion() {
-        return fechaInicioInscripcion;
-    }
-
-    public LocalDate getFechaFinInscripcion() {
-        return fechaFinInscripcion;
-    }
 
     public void nuevaInscripcion(Inscripcion inscripcion) {
 
@@ -48,8 +37,9 @@ public class Concurso {
         if(estaInscripto(inscripcion.getParticipante()))   throw new IllegalArgumentException("El participante se encuentra inscripto");;
 
         this.inscriptos.add(inscripcion);
+        inscripcion.getParticipante().agregarInscripcion(inscripcion);
 
-        if(esInscriptoPrimerDia(inscripcion)) inscripcion.agregarPuntos(PUNTOS_PRIMER_DIA,this.nombre);
+        if(esInscriptoPrimerDia(inscripcion)) inscripcion.agregarPuntos(PUNTOS_PRIMER_DIA,this);
     }
 
     private Boolean esInscriptoPrimerDia(Inscripcion inscripcion){
@@ -60,7 +50,8 @@ public class Concurso {
 
     public boolean estaInscripto(Participante participante) {
         validarParticipante(participante);
-        return this.inscriptos.stream().anyMatch(inscripcion -> inscripcion.getParticipante().equals(participante));
+        return  inscriptos.stream()
+                .anyMatch(i -> i.getParticipante().equals(participante));
     }
 
 
@@ -93,8 +84,8 @@ public class Concurso {
     }
     private void validarPeridoInscripcion(Inscripcion inscripcion){
 
-        if ( !inscripcion.getFechaInscripcion().isAfter(this.fechaInicioInscripcion) &&
-                !inscripcion.getFechaInscripcion().isBefore(this.fechaFinInscripcion)){
+        if (inscripcion.getFechaInscripcion().isBefore(this.fechaInicioInscripcion) ||
+                inscripcion.getFechaInscripcion().isAfter(this.fechaFinInscripcion)){
 
             //System.out.println("La inscripción no se encuentra dentro del período permitido.");
             throw new IllegalArgumentException("La inscripción no se encuentra dentro del período permitido.");
@@ -103,18 +94,19 @@ public class Concurso {
 
     }
     private void validarInscripcion(Inscripcion inscripcion){
-        if( (inscripcion != null) && (!this.inscriptos.contains(inscripcion)) ){
-            //System.out.println("La inscripción no es válida o ya existe.");
+        if(inscripcion == null){
+
             throw new IllegalArgumentException("La inscripción no es válida o ya existe.");
 
         };
     }
-    private void validarParticipante(Participante participante){
+    private void validarParticipante (Participante participante){
         if(participante == null){
             throw new IllegalArgumentException("El participante no puede ser nulo.");
 
         };
     }
+
 
 
 }

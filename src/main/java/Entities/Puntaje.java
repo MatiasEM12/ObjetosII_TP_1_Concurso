@@ -7,9 +7,9 @@ public class Puntaje {
 
     public Puntaje(Concurso concurso, Integer puntos) {
 
-        validarConcurso( concurso);
+        validarConcurso(concurso);
         validarPuntos(puntos);
-        this.concurso=( concurso);
+        this.concurso= concurso;
         this.puntos = puntos;
     }
 

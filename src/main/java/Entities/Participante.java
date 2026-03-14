@@ -41,6 +41,24 @@ public class Participante {
 
     }
 
+    public Integer obtenerPuntaje(Concurso concurso) {
+        Puntaje puntaje = puntajes.stream()
+            .filter(p -> p.getConcurso().equals(concurso))
+            .findFirst()
+            .orElse(null);
+
+        if (puntaje == null) {
+            throw new RuntimeException("El participante no tiene puntaje para este concurso.");
+        }
+
+        return puntaje.getPuntos();
+    }
+
+    public void agregarInscripcion(Inscripcion inscripcion){
+        validarInscripcion(inscripcion);
+        this.inscripciones.add(inscripcion);
+    }
+
     public boolean estaInscripto(Concurso concurso) {
         return concurso.estaInscripto(this);
     }
@@ -56,8 +74,10 @@ public class Participante {
         if(dni.length() != 8 ) throw new RuntimeException("El DNI del participante debe tener 8 dígitos numéricos.");
     }
 
-    private void validarPuntos(Integer puntos){
-        if(puntos == null )throw new RuntimeException("Los puntos no pueden ser null.");
+    private void validarInscripcion(Inscripcion inscripcion){
+        if(inscripcion == null) throw new RuntimeException("La inscripción no puede ser nula.");
+        if(!inscripcion.getParticipante().equals(this)) throw new RuntimeException("La inscripción no corresponde a este participante.");
+        if(inscripciones.contains(inscripcion)) throw new RuntimeException("El participante ya tiene esta inscripción.");
     }
 
     @Override
