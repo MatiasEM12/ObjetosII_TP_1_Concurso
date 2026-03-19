@@ -1,6 +1,7 @@
 import Entities.Concurso;
 import Entities.Inscripcion;
 import Entities.Participante;
+import Entities.Puntaje;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -25,7 +26,8 @@ public class concursoTest {
 
     }
 
-    @Test void inscribirParticipantePrimerDia(){
+    @Test 
+    void inscribirParticipantePrimerDia(){
         var concurso = new Concurso("Concurso de Matematica", LocalDate.now(),
                 LocalDate.now().plusWeeks(1)); //
 
@@ -39,7 +41,8 @@ public class concursoTest {
        assertEquals(Concurso.PUNTOS_PRIMER_DIA, puntos);
     }
 
-    @Test void inscribirParticipanteFueraDeFecha(){
+    @Test 
+    void inscribirParticipanteFueraDeFecha(){
 
         var concurso = new Concurso("Concurso de Lengua", LocalDate.now().minusWeeks(2),
                 LocalDate.now().minusWeeks(1)); //
@@ -50,5 +53,26 @@ public class concursoTest {
         var e = assertThrows(IllegalArgumentException.class, () -> concurso.nuevaInscripcion(inscripcion));
         assertEquals("La inscripción no se encuentra dentro del período permitido.", e.getMessage());
     }
+    
+    
+    @Test
+    void puntaje(){
+
+        var concurso = new Concurso("Concurso de Ingles", LocalDate.now().minusWeeks(1),
+                LocalDate.now().plusWeeks(1)); //
+
+        var participante = new Participante("Pepe Cruz", "12345555");
+        var inscripcion = new Inscripcion(participante, LocalDate.now());
+
+        concurso.nuevaInscripcion(inscripcion);
+
+        participante.agregarPuntos(20, concurso);
+        var e = assertThrows(IllegalArgumentException.class, () -> participante.agregarPuntos(-10,concurso));
+        assertEquals("Los puntos no pueden ser negativos o null.", e.getMessage());
+
+        
+
+    }
+    
 
 }
