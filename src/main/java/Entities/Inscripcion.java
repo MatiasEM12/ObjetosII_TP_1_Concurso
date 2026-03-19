@@ -22,6 +22,10 @@ public class Inscripcion {
         this.participante.agregarPuntos(puntosPrimerDia, concurso);
 
     }
+    public void generarInscripcion() {
+        validarParticipante(this.participante);
+        this.participante.agregarInscripcion(this);
+    }
     public Participante getParticipante() {
         return participante;
     }
@@ -38,6 +42,7 @@ public class Inscripcion {
     private void validarFechaInscripcion(LocalDate fechaInscripcion){
         if(fechaInscripcion == null) throw new RuntimeException("La fecha de inscripción no puede ser nula.");
     }
+
 
 
 }

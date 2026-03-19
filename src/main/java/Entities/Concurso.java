@@ -37,7 +37,8 @@ public class Concurso {
         if(estaInscripto(inscripcion.getParticipante()))   throw new IllegalArgumentException("El participante se encuentra inscripto");;
 
         this.inscriptos.add(inscripcion);
-        inscripcion.getParticipante().agregarInscripcion(inscripcion);
+        inscripcion.generarInscripcion();
+
 
         if(esInscriptoPrimerDia(inscripcion)) inscripcion.agregarPuntos(PUNTOS_PRIMER_DIA,this);
     }
