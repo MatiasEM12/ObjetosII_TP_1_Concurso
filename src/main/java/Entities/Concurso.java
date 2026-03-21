@@ -2,6 +2,7 @@ package Entities;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class Concurso {
@@ -88,6 +89,15 @@ public class Concurso {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Concurso concurso = (Concurso) o;
+        return Objects.equals(nombre, concurso.nombre) && Objects.equals(fechaInicioInscripcion, concurso.fechaInicioInscripcion) && Objects.equals(fechaFinInscripcion, concurso.fechaFinInscripcion);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, fechaInicioInscripcion, fechaFinInscripcion);
+    }
 }

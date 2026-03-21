@@ -26,13 +26,16 @@ public class Inscripcion {
         validarParticipante(this.participante);
         this.participante.agregarInscripcion(this);
     }
-    public Participante getParticipante() {
-        return participante;
-    }
 
     public LocalDate getFechaInscripcion() {
         return fechaInscripcion;
     }
+
+    public Participante getParticipante() {
+        return participante;
+    }
+
+
 
     //VALIDACIONES
     private void validarParticipante(Participante participante){
