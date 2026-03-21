@@ -34,13 +34,16 @@ public class Concurso {
         validarInscripcion(inscripcion);
         validarPeridoInscripcion(inscripcion);
 
-        if(estaInscripto(inscripcion.getParticipante()))   throw new IllegalArgumentException("El participante se encuentra inscripto");;
+        if(estaInscripto(inscripcion.getParticipante()))  throw new IllegalArgumentException("El participante se encuentra inscripto");;
 
         this.inscriptos.add(inscripcion);
-        inscripcion.generarInscripcion();
+        inscripcion.asignarInscripcion();
 
 
-        if(esInscriptoPrimerDia(inscripcion)) inscripcion.agregarPuntos(PUNTOS_PRIMER_DIA,this);
+        if(esInscriptoPrimerDia(inscripcion)) {
+            inscripcion.agregarPuntos(PUNTOS_PRIMER_DIA,this);
+            System.out.println("Inscripto el primer dia");
+        }
     }
 
     private Boolean esInscriptoPrimerDia(Inscripcion inscripcion){
@@ -51,36 +54,20 @@ public class Concurso {
 
     public boolean estaInscripto(Participante participante) {
         validarParticipante(participante);
-        return  inscriptos.stream()
-                .anyMatch(i -> i.getParticipante().equals(participante));
+        return  inscriptos.stream().anyMatch(i -> i.getParticipante().equals(participante));
     }
 
 
     //VALIDACIONES
     private void validarNombre(String nombre){
-        if (nombre == null || nombre.trim().isEmpty()){
-
-            //System.out.println("El nombre del concurso no puede ser nulo o vacío.");
-            throw new IllegalArgumentException("El nombre del concurso no puede ser nulo o vacío.");
-
-        };
+        if (nombre == null || nombre.trim().isEmpty()) throw new IllegalArgumentException("El nombre del concurso no puede ser nulo o vacío.");
     }
     private void validarFecha(LocalDate fecha){
-        if (fecha == null){
-
-            //System.out.println("La fecha no puede ser nula.");
-            throw new IllegalArgumentException("La fecha no puede ser nula.");
-
-        };
+        if (fecha == null) throw new IllegalArgumentException("La fecha no puede ser nula.");
     }
     private void validarFechasInscripcion(LocalDate fechaInicio, LocalDate fechaFin){
 
-        if ( !fechaInicio.isBefore(fechaFin) ){
-
-            //System.out.println("La fecha de inicio de inscripción debe ser anterior a la fecha de fin de inscripción.");
-            throw new IllegalArgumentException("La fecha de inicio de inscripción debe ser anterior a la fecha de fin de inscripción.");
-
-        };
+        if ( !fechaInicio.isBefore(fechaFin) ) throw new IllegalArgumentException("La fecha de inicio de inscripción debe ser anterior a la fecha de fin de inscripción.");
 
     }
     private void validarPeridoInscripcion(Inscripcion inscripcion){
@@ -88,24 +75,17 @@ public class Concurso {
         if (inscripcion.getFechaInscripcion().isBefore(this.fechaInicioInscripcion) ||
                 inscripcion.getFechaInscripcion().isAfter(this.fechaFinInscripcion)){
 
-            //System.out.println("La inscripción no se encuentra dentro del período permitido.");
             throw new IllegalArgumentException("La inscripción no se encuentra dentro del período permitido.");
 
         };
 
     }
     private void validarInscripcion(Inscripcion inscripcion){
-        if(inscripcion == null){
-
-            throw new IllegalArgumentException("La inscripción no es válida o ya existe.");
-
-        };
+        if(inscripcion == null) throw new IllegalArgumentException("La inscripción no es válida o ya existe.");
     }
     private void validarParticipante (Participante participante){
-        if(participante == null){
-            throw new IllegalArgumentException("El participante no puede ser nulo.");
+        if(participante == null) throw new IllegalArgumentException("El participante no puede ser nulo.");
 
-        };
     }
 
 

@@ -1,7 +1,7 @@
 import Entities.Concurso;
 import Entities.Inscripcion;
 import Entities.Participante;
-import Entities.Puntaje;
+
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

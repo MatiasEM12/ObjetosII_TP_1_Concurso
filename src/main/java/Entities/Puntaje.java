@@ -14,18 +14,20 @@ public class Puntaje {
     }
 
 
-    public Integer getPuntos() {
-        return puntos;
-    }
-
-    public Concurso getConcurso() {
-        return concurso;
-
-    }
      public void agregarPuntos(Integer puntos) {
 
         validarPuntos(puntos);
         this.puntos += puntos;
+    }
+
+    public Boolean perteneceA(Concurso consurso){
+
+        return this.concurso.equals(concurso);
+
+    }
+
+    public Integer getPuntos() {
+        return puntos;
     }
 
     //VALIDACIONES

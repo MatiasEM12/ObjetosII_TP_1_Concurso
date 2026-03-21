@@ -25,7 +25,7 @@ public class Participante {
     public void agregarPuntos(Integer puntos, Concurso concurso) {
 
         Puntaje puntajeExistente = puntajes.stream()
-            .filter(p -> p.getConcurso().equals(concurso))
+            .filter(p -> p.perteneceA(concurso))
             .findFirst()
             .orElse(null);
 
@@ -34,6 +34,7 @@ public class Participante {
         } else {
 
             if( !estaInscripto(concurso)) throw new RuntimeException("El participante no está inscripto en el concurso.");
+
             Puntaje nuevoPuntaje = new Puntaje(concurso, puntos);
             puntajes.add(nuevoPuntaje);
         }
@@ -43,13 +44,12 @@ public class Participante {
 
     public Integer obtenerPuntaje(Concurso concurso) {
         Puntaje puntaje = puntajes.stream()
-            .filter(p -> p.getConcurso().equals(concurso))
+            .filter(p -> p.perteneceA(concurso))
             .findFirst()
             .orElse(null);
 
-        if (puntaje == null) {
-            throw new RuntimeException("El participante no tiene puntaje para este concurso.");
-        }
+        if (puntaje == null) throw new RuntimeException("El participante no tiene puntaje para este concurso.");
+
 
         return puntaje.getPuntos();
     }

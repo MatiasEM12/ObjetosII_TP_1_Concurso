@@ -22,7 +22,7 @@ public class Inscripcion {
         this.participante.agregarPuntos(puntosPrimerDia, concurso);
 
     }
-    public void generarInscripcion() {
+    public void asignarInscripcion() {
         validarParticipante(this.participante);
         this.participante.agregarInscripcion(this);
     }
