@@ -7,6 +7,9 @@ import java.util.Objects;
 
 public class Concurso {
 
+    private static int cont=0;
+
+    private final String  id;
     private String nombre;
     private ArrayList<Inscripcion> inscriptos;
     private LocalDate fechaInicioInscripcion;
@@ -22,12 +25,28 @@ public class Concurso {
         validarFecha(fechaFinInscripcion);
         validarFechasInscripcion(fechaInicioInscripcion,fechaFinInscripcion);
 
+        cont++;
+        this.id= "C" + String.format("%05d", cont);
+
         this.nombre = nombre;
         this.inscriptos = new ArrayList<>();
         this.fechaInicioInscripcion = fechaInicioInscripcion;
         this.fechaFinInscripcion = fechaFinInscripcion;
     }
 
+    public Concurso(String id,String nombre, LocalDate fechaInicioInscripcion, LocalDate fechaFinInscripcion) {
+
+        validarNombre(nombre);
+        validarFecha(fechaInicioInscripcion);
+        validarFecha(fechaFinInscripcion);
+        validarFechasInscripcion(fechaInicioInscripcion,fechaFinInscripcion);
+        validarID(id);
+        this.id=id;
+        this.nombre = nombre;
+        this.inscriptos = new ArrayList<>();
+        this.fechaInicioInscripcion = fechaInicioInscripcion;
+        this.fechaFinInscripcion = fechaFinInscripcion;
+    }
 
 
     public void nuevaInscripcion(Inscripcion inscripcion) {
@@ -38,6 +57,7 @@ public class Concurso {
         if(estaInscripto(inscripcion.getParticipante()))  throw new IllegalArgumentException("El participante se encuentra inscripto");;
 
         this.inscriptos.add(inscripcion);
+        inscripcion.cargarConcurso(this);
         inscripcion.asignarInscripcion();
 
 
@@ -56,6 +76,10 @@ public class Concurso {
     public boolean estaInscripto(Participante participante) {
         validarParticipante(participante);
         return  inscriptos.stream().anyMatch(i -> i.getParticipante().equals(participante));
+    }
+
+    public String getId() {
+        return id;
     }
 
 
@@ -86,6 +110,10 @@ public class Concurso {
     }
     private void validarParticipante (Participante participante){
         if(participante == null) throw new IllegalArgumentException("El participante no puede ser nulo.");
+
+    }
+    private void validarID( String id){
+        if(  id == null || id.trim().isEmpty()) throw new IllegalArgumentException("El ID del concurso no puede ser nulo o vacío.");
 
     }
 

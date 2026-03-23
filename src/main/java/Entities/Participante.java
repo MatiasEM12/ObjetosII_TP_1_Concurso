@@ -5,6 +5,9 @@ import java.util.Objects;
 
 public class Participante {
 
+    private static int cont=0;
+
+    private final String id;
     private String nombre;
     private String dni;
 
@@ -15,12 +18,31 @@ public class Participante {
 
         validarNombre(nombre);
         validarDni(dni);
+        cont++;
+        this.id= "P" + String.format("%05d", cont);
+
 
         this.nombre = nombre;
         this.dni = dni;
         this.puntajes = new ArrayList<>();
         this.inscripciones=new ArrayList<>();
     }
+
+    public Participante( String id,String nombre, String dni, ArrayList<Puntaje> puntajes, ArrayList<Inscripcion> inscripciones) {
+
+        validarNombre(nombre);
+        validarDni(dni);
+        validarID(id);
+        validarInscripciones(inscripciones);
+        validarPuntajes(puntajes);
+
+        this.id=id;
+        this.nombre = nombre;
+        this.dni = dni;
+        this.puntajes = puntajes;
+        this.inscripciones= inscripciones;
+    }
+
 
     public void agregarPuntos(Integer puntos, Concurso concurso) {
 
@@ -63,6 +85,10 @@ public class Participante {
         return concurso.estaInscripto(this);
     }
 
+
+    public String getId(){
+        return this.id;
+    }
     //VALIDACIONES
     private void validarNombre(String nombre){
         if(nombre == null || nombre.isEmpty()) throw new RuntimeException("El nombre del participante no puede ser nulo o vacío.");
@@ -79,6 +105,19 @@ public class Participante {
         if(!inscripcion.getParticipante().equals(this)) throw new RuntimeException("La inscripción no corresponde a este participante.");
         if(inscripciones.contains(inscripcion)) throw new RuntimeException("El participante ya tiene esta inscripción.");
     }
+
+    private void validarPuntajes( ArrayList<Puntaje> puntajes){
+        if(puntajes == null) throw new RuntimeException("La lista de puntajes no puede ser nula.");
+    }
+
+    private void validarInscripciones( ArrayList<Inscripcion> inscripciones){
+        if(inscripciones == null) throw new RuntimeException("La lista de inscripciones no puede ser nula.");
+    }
+
+    private void validarID(String id){
+        if( id == null || id.trim().isEmpty()) throw new RuntimeException("El ID del Participante  no puede ser nulo o vacío.");
+    }
+
 
     @Override
     public boolean equals(Object o) {

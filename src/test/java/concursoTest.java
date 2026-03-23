@@ -1,9 +1,12 @@
 import Entities.Concurso;
 import Entities.Inscripcion;
 import Entities.Participante;
+import Persistence.ArchivoInscriptos;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -72,6 +75,39 @@ public class concursoTest {
 
         
 
+    }
+    
+    
+    @Test 
+    void archivoInscriptos(){
+        // Setup
+        var concurso = new Concurso("Concurso de Programación", LocalDate.now().minusWeeks(1),
+                LocalDate.now().plusWeeks(1));
+        var participante = new Participante("Juan Perez", "12345678");
+        var inscripcion = new Inscripcion(participante, LocalDate.now());
+        concurso.nuevaInscripcion(inscripcion);
+
+        // Crear archivo temporal
+        String tempFilePath = "temp_inscriptos.txt";
+        var archivo = new ArchivoInscriptos(tempFilePath);
+
+        // Crear la inscripción en el archivo
+        archivo.crear(inscripcion);
+
+        // Verificar que el archivo existe y contiene la información correcta
+        File file = new File(tempFilePath);
+        assertTrue(file.exists(), "El archivo debería existir");
+
+        try {
+            String content = java.nio.file.Files.readString(file.toPath());
+            String expected = inscripcion.toString() + System.lineSeparator();
+            assertEquals(expected, content, "El contenido del archivo debería coincidir con la inscripción");
+        } catch (Exception e) {
+            fail("Error al leer el archivo: " + e.getMessage());
+        } finally {
+            // Limpiar archivo temporal
+            file.delete();
+        }
     }
     
 
