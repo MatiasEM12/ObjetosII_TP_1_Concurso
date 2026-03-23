@@ -2,9 +2,12 @@ package Persistence;
 
 import Entities.Inscripcion;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ArchivoInscriptos implements  GestionArchivo<Inscripcion> {
 
@@ -34,17 +37,23 @@ public class ArchivoInscriptos implements  GestionArchivo<Inscripcion> {
     }
 
     @Override
-    public void modificar(Inscripcion dato) {
-
+    public ArrayList<String> listar() {
+        ArrayList<String> inscripciones = new ArrayList<>();
+        
+        if (!archivo.exists()) {
+            return inscripciones;
+        }
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                inscripciones.add(linea);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error al leer inscripciones", e);
+        }
+        
+        return inscripciones;
     }
 
-    @Override
-    public void eliminar(int id) {
-
-    }
-
-    @Override
-    public Inscripcion buscar(int id) {
-        return null;
-    }
 }
