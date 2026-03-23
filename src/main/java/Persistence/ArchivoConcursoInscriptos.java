@@ -1,13 +1,21 @@
 package Persistence;
 
-public class ArchivoConcursoInscriptos implements  GestionArchivo {
+public class ArchivoConcursoInscriptos implements  GestionArchivo<String> {
+
+    private String nombre;
+
+
+    public ArchivoConcursoInscriptos(String nombre) {
+        this.nombre = nombre;
+    }
+
     @Override
-    public void crear(Object dato) {
+    public void crear(String dato) {
 
     }
 
     @Override
-    public void modificar(Object dato) {
+    public void modificar(String dato) {
 
     }
 
@@ -17,7 +25,7 @@ public class ArchivoConcursoInscriptos implements  GestionArchivo {
     }
 
     @Override
-    public Object buscar(int id) {
-        return null;
+    public String buscar(int id) {
+        return "";
     }
 }
