@@ -91,12 +91,13 @@ public class Concurso {
         if (fecha == null) throw new IllegalArgumentException("La fecha no puede ser nula.");
     }
     private void validarFechasInscripcion(LocalDate fechaInicio, LocalDate fechaFin){
-
+        validarFecha(fechaInicio);
+        validarFecha(fechaFin);
         if ( !fechaInicio.isBefore(fechaFin) ) throw new IllegalArgumentException("La fecha de inicio de inscripción debe ser anterior a la fecha de fin de inscripción.");
 
     }
     private void validarPeridoInscripcion(Inscripcion inscripcion){
-
+        nuevaInscripcion(inscripcion);
         if (inscripcion.getFechaInscripcion().isBefore(this.fechaInicioInscripcion) ||
                 inscripcion.getFechaInscripcion().isAfter(this.fechaFinInscripcion)){
 
