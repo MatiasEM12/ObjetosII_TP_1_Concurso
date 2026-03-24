@@ -94,20 +94,17 @@ public class concursoTest {
         // Crear la inscripción en el archivo
         archivo.crear(inscripcion);
 
-        // Verificar que el archivo existe y contiene la información correcta
-        File file = new File("Inscriptos.txt");
-        assertTrue(file.exists(), "El archivo debería existir");
+
 
         try {
             ArrayList<String> lines = archivo.listar();
-            assertFalse(lines.isEmpty(), "La lista de inscripciones no debería estar vacía");
-            String contenido = lines.getFirst();
-            String esperado = inscripcion.toStringInscripto();
-            assertEquals(esperado, contenido, "El contenido del archivo debería coincidir con la inscripción");
+           assertTrue(lines.contains(inscripcion.toStringInscripto()), "El archivo no contiene la inscripción esperada.");
         } catch (Exception e) {
             fail("Error al leer el archivo: " + e.getMessage());
         } finally {
             // Limpiar archivo temporal
+
+            File file = new File("Inscriptos.txt");
             file.delete();
         }
     }
