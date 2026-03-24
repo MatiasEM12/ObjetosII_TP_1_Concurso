@@ -97,7 +97,7 @@ public class Concurso {
 
     }
     private void validarPeridoInscripcion(Inscripcion inscripcion){
-        nuevaInscripcion(inscripcion);
+        validarInscripcion(inscripcion);
         if (inscripcion.getFechaInscripcion().isBefore(this.fechaInicioInscripcion) ||
                 inscripcion.getFechaInscripcion().isAfter(this.fechaFinInscripcion)){
 
@@ -106,6 +106,11 @@ public class Concurso {
         };
 
     }
+
+    public ArrayList<Inscripcion> getInscriptos() {
+        return inscriptos;
+    }
+
     private void validarInscripcion(Inscripcion inscripcion){
         if(inscripcion == null) throw new IllegalArgumentException("La inscripción no es válida o ya existe.");
     }

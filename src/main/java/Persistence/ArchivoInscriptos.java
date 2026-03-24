@@ -14,8 +14,8 @@ public class ArchivoInscriptos implements  GestionArchivo<Inscripcion> {
     private File archivo;
 
 
-    public ArchivoInscriptos(String archivo) {
-        this.archivo = new File(archivo);
+    public ArchivoInscriptos() {
+        this.archivo = new File("Inscriptos.txt");
     }
 
 
@@ -26,8 +26,15 @@ public class ArchivoInscriptos implements  GestionArchivo<Inscripcion> {
                 archivo.createNewFile();
             }
 
+            String nuevaInscripcion = dato.toStringInscripto();
+
+            ArrayList<String> existentes = listar();
+            if (existentes.contains(nuevaInscripcion)) {
+                throw new  RuntimeException("La inscripción ya existe en el archivo");
+            }
+
             FileWriter writer = new FileWriter(archivo, true);
-            writer.write(dato.toString() + System.lineSeparator());
+            writer.write(nuevaInscripcion + System.lineSeparator());
             writer.close();
 
         } catch (IOException e) {

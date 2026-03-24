@@ -79,7 +79,7 @@ public class Inscripcion {
         if( id == null || id.trim().isEmpty()) throw new RuntimeException("El ID de la Inscripcion no puede ser nulo o vacío.");
     }
 
-    public String  toString() {
+    public String  toStringInscripto() {
         return this.getFechaInscripcion().format(formato)
                 + ", " + this.participante.getId()
                 + ", " + this.concurso.getId();

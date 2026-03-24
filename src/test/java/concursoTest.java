@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.nio.file.Files;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -83,25 +84,26 @@ public class concursoTest {
         // Setup
         var concurso = new Concurso("Concurso de Programación", LocalDate.now().minusWeeks(1),
                 LocalDate.now().plusWeeks(1));
-        var participante = new Participante("Juan Perez", "12345678");
+        var participante = new Participante("Juan Perez", "12777777");
         var inscripcion = new Inscripcion(participante, LocalDate.now());
         concurso.nuevaInscripcion(inscripcion);
 
         // Crear archivo temporal
-        String tempFilePath = "temp_inscriptos.txt";
-        var archivo = new ArchivoInscriptos(tempFilePath);
+        var archivo = new ArchivoInscriptos();
 
         // Crear la inscripción en el archivo
         archivo.crear(inscripcion);
 
         // Verificar que el archivo existe y contiene la información correcta
-        File file = new File(tempFilePath);
+        File file = new File("Inscriptos.txt");
         assertTrue(file.exists(), "El archivo debería existir");
 
         try {
-            String content = java.nio.file.Files.readString(file.toPath());
-            String expected = inscripcion.toString() + System.lineSeparator();
-            assertEquals(expected, content, "El contenido del archivo debería coincidir con la inscripción");
+            ArrayList<String> lines = archivo.listar();
+            assertFalse(lines.isEmpty(), "La lista de inscripciones no debería estar vacía");
+            String contenido = lines.getFirst();
+            String esperado = inscripcion.toStringInscripto();
+            assertEquals(esperado, contenido, "El contenido del archivo debería coincidir con la inscripción");
         } catch (Exception e) {
             fail("Error al leer el archivo: " + e.getMessage());
         } finally {
