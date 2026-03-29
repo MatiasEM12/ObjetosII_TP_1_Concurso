@@ -7,6 +7,7 @@ public class FakeInscripcionDAOJDBC extends InscripcionDAO {
 
 
 
+
     @Override
     public void create(Inscripcion inscripcion) {
 
