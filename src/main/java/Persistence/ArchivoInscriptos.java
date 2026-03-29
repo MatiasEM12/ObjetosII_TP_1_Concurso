@@ -1,5 +1,6 @@
 package Persistence;
 
+import Entities.GestionArchivo;
 import Entities.Inscripcion;
 
 import java.io.BufferedReader;
@@ -9,13 +10,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ArchivoInscriptos implements  GestionArchivo<Inscripcion> {
+public class ArchivoInscriptos extends GestionArchivo<Inscripcion> {
 
     private File archivo;
 
 
-    public ArchivoInscriptos() {
-        this.archivo = new File("Inscriptos.txt");
+    public ArchivoInscriptos(String ruta) {
+        super(ruta);
+        this.archivo = new File(ruta);
     }
 
 
@@ -41,6 +43,21 @@ public class ArchivoInscriptos implements  GestionArchivo<Inscripcion> {
             throw new RuntimeException("Error al guardar inscripción", e);
         }
 
+    }
+
+    @Override
+    public void modificar(Inscripcion dato) {
+        throw new RuntimeException("modificar Inscripcion no implementado");
+    }
+
+    @Override
+    public void eliminar(String id) {
+        throw new RuntimeException("eliminar por Id de Inscripcion no implementado");
+    }
+
+    @Override
+    public Inscripcion buscar(String id) {
+        throw new RuntimeException("Buscar por Id de Inscripcion no implementado");
     }
 
     @Override

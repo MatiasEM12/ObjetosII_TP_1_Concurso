@@ -16,9 +16,10 @@ public class concursoTest {
 
     @Test
     public void inscribirParticipante(){
-        //setup
+
+        var fakeArchivoInscriptos= new FakeArchivoInscriptos("fakeArchivoInscriptos.txt");
         var concurso = new Concurso("Concurso de Programación", LocalDate.now().minusWeeks(1),
-                LocalDate.now().plusWeeks(1)); //
+                LocalDate.now().plusWeeks(1),fakeArchivoInscriptos); //
 
         var participante = new Participante("Juan Perez", "12345678");
         var inscripcion = new Inscripcion(participante, LocalDate.now());
@@ -32,8 +33,10 @@ public class concursoTest {
 
     @Test 
     void inscribirParticipantePrimerDia(){
+
+        var fakeArchivoInscriptos= new FakeArchivoInscriptos("fakeArchivoInscriptos.txt");
         var concurso = new Concurso("Concurso de Matematica", LocalDate.now(),
-                LocalDate.now().plusWeeks(1)); //
+                LocalDate.now().plusWeeks(1),fakeArchivoInscriptos); //
 
         var participante = new Participante("Jhon Doe", "12345677");
         var inscripcion = new Inscripcion(participante, LocalDate.now());
@@ -47,9 +50,9 @@ public class concursoTest {
 
     @Test 
     void inscribirParticipanteFueraDeFecha(){
-
+        var fakeArchivoInscriptos= new FakeArchivoInscriptos("fakeArchivoInscriptos.txt");
         var concurso = new Concurso("Concurso de Lengua", LocalDate.now().minusWeeks(2),
-                LocalDate.now().minusWeeks(1)); //
+                LocalDate.now().minusWeeks(1),fakeArchivoInscriptos); //
 
         var participante = new Participante("Maria Marta", "12345671");
         var inscripcion = new Inscripcion(participante, LocalDate.now());
@@ -61,9 +64,9 @@ public class concursoTest {
     
     @Test
     void puntaje(){
-
+        var fakeArchivoInscriptos= new FakeArchivoInscriptos("fakeArchivoInscriptos.txt");
         var concurso = new Concurso("Concurso de Ingles", LocalDate.now().minusWeeks(1),
-                LocalDate.now().plusWeeks(1)); //
+                LocalDate.now().plusWeeks(1),fakeArchivoInscriptos); //
 
         var participante = new Participante("Pepe Cruz", "12345555");
         var inscripcion = new Inscripcion(participante, LocalDate.now());
@@ -81,32 +84,17 @@ public class concursoTest {
     
     @Test 
     void archivoInscriptos(){
-        // Setup
+        var fakeArchivoInscriptos= new FakeArchivoInscriptos("fakeArchivoInscriptos.txt");
         var concurso = new Concurso("Concurso de Programación", LocalDate.now().minusWeeks(1),
-                LocalDate.now().plusWeeks(1));
+                LocalDate.now().plusWeeks(1),fakeArchivoInscriptos);
         var participante = new Participante("Juan Perez", "12777777");
         var inscripcion = new Inscripcion(participante, LocalDate.now());
         concurso.nuevaInscripcion(inscripcion);
 
-        // Crear archivo temporal
-        var archivo = new ArchivoInscriptos();
-
-        // Crear la inscripción en el archivo
-        archivo.crear(inscripcion);
+      ArrayList<String> inscriptos = fakeArchivoInscriptos.listar();
+      assertTrue(inscriptos.contains(inscripcion.toStringInscripto()));
 
 
-
-        try {
-            ArrayList<String> lines = archivo.listar();
-           assertTrue(lines.contains(inscripcion.toStringInscripto()), "El archivo no contiene la inscripción esperada.");
-        } catch (Exception e) {
-            fail("Error al leer el archivo: " + e.getMessage());
-        } finally {
-            // Limpiar archivo temporal
-
-            File file = new File("Inscriptos.txt");
-            file.delete();
-        }
     }
     
 

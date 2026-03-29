@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+        ArchivoInscriptos archivo = new ArchivoInscriptos("inscriptos.txt");
 
         ArrayList<String> inscripciones = new ArrayList<>();
         // ========== CREAR CONCURSO ==========
@@ -16,11 +17,7 @@ public class Main {
         LocalDate fechaInicio = LocalDate.now().minusWeeks(1);
         LocalDate fechaFin = LocalDate.now().plusWeeks(2);
         
-        Concurso concurso = new Concurso(
-            "Concurso de Objetos II",
-            fechaInicio,
-            fechaFin
-        );
+        Concurso concurso = new Concurso("Concurso de Objetos II", fechaInicio, fechaFin,archivo);
         
         System.out.println("Concurso creado: " + concurso.getId());
         System.out.println("Fecha de inscripción: " + fechaInicio + " a " + fechaFin + "\n");
@@ -89,29 +86,18 @@ public class Main {
         // ========== GUARDAR INSCRIPCIONES EN ARCHIVO ==========
         System.out.println("=== PERSISTENCIA DE DATOS ===\n");
 
-        ArchivoInscriptos archivo = new ArchivoInscriptos();
-        try {
-            // Guardar inscripciones en el archivo
-            for (Inscripcion insc : concurso.getInscriptos()) {
-                archivo.crear(insc);
-            }
 
-            // Leer inscripciones del archivo
-            inscripciones = archivo.listar();
-            System.out.println("\n Total de inscripciones en archivo: " + inscripciones.size());
 
-        } catch (Exception e) {
-            System.out.println("✗ Error al guardar inscripciones: " + e.getMessage());
-        }
-        System.out.println();
 
         System.out.println("=== LISTADO DE INSCRIPTOS DESDE EL ARCHIVO ===\n");
+
+        inscripciones=archivo.listar();
 
         if (inscripciones.isEmpty()) {
             System.out.println("No hay inscripciones registradas");
         } else {
             for(String s : inscripciones){
-                System.out.println("  " + s);
+                System.out.println(s);
             }
         }
         System.out.println();

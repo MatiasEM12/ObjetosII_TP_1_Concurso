@@ -15,19 +15,21 @@ public class Concurso {
     private LocalDate fechaInicioInscripcion;
     private LocalDate fechaFinInscripcion;
 
+    private GestionArchivo<Inscripcion> archivo;
     public static final Integer PUNTOS_PRIMER_DIA = 10;
 
 
-    public Concurso(String nombre, LocalDate fechaInicioInscripcion, LocalDate fechaFinInscripcion) {
+    public Concurso(String nombre, LocalDate fechaInicioInscripcion, LocalDate fechaFinInscripcion,GestionArchivo<Inscripcion> archivo) {
 
         validarNombre(nombre);
         validarFecha(fechaInicioInscripcion);
         validarFecha(fechaFinInscripcion);
         validarFechasInscripcion(fechaInicioInscripcion,fechaFinInscripcion);
-
+        validarArchivo(archivo);
         cont++;
         this.id= "C" + String.format("%05d", cont);
 
+        this.archivo=archivo;
         this.nombre = nombre;
         this.inscriptos = new ArrayList<>();
         this.fechaInicioInscripcion = fechaInicioInscripcion;
@@ -41,6 +43,8 @@ public class Concurso {
         validarFecha(fechaFinInscripcion);
         validarFechasInscripcion(fechaInicioInscripcion,fechaFinInscripcion);
         validarID(id);
+
+
         this.id=id;
         this.nombre = nombre;
         this.inscriptos = new ArrayList<>();
@@ -60,7 +64,7 @@ public class Concurso {
         inscripcion.cargarConcurso(this);
         inscripcion.asignarInscripcion();
 
-
+        archivo.crear(inscripcion);
         if(esInscriptoPrimerDia(inscripcion)) {
             inscripcion.agregarPuntos(PUNTOS_PRIMER_DIA,this);
             System.out.println("Inscripto el primer dia");
@@ -122,7 +126,9 @@ public class Concurso {
         if(  id == null || id.trim().isEmpty()) throw new IllegalArgumentException("El ID del concurso no puede ser nulo o vacío.");
 
     }
-
+    private void validarArchivo(GestionArchivo<Inscripcion> archivo){
+        if(archivo==null)throw new IllegalArgumentException("archivo no puede ser nulo");
+    }
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
