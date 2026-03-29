@@ -92,7 +92,8 @@ public class concursoTest {
         concurso.nuevaInscripcion(inscripcion);
 
       ArrayList<String> inscriptos = fakeArchivoInscriptos.listar();
-      assertTrue(inscriptos.contains(inscripcion.toStringInscripto()));
+
+      assertTrue(inscriptos.contains(inscripcion.toStringInscripto()),"No se guardó la inscripción en el archivo");
 
 
     }

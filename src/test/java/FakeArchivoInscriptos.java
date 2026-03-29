@@ -9,6 +9,7 @@ public class FakeArchivoInscriptos extends GestionArchivo<Inscripcion>  {
 
     public FakeArchivoInscriptos(String ruta){
         super(ruta);
+        inscriptos=new ArrayList<>();
     }
 
     @Override
