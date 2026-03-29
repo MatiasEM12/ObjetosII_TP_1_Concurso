@@ -31,10 +31,10 @@ public class Main {
 
         ArrayList<Participante> participantes = new ArrayList<>();
 
-        participantes.add(new Participante("Juan Pérez", "12345678"));
-        participantes.add(new Participante("María García", "87654321"));
-        participantes.add(new Participante("Carlos López", "11111111"));
-        participantes.add(new Participante("Ana Martínez", "22222222"));
+        participantes.add(new Participante("Juan Pérez", "12345678","juanperez@gmail.com"));
+        participantes.add(new Participante("María García", "87654321","mariagarcia@gmail.com"));
+        participantes.add(new Participante("Carlos López", "11111111","carlosperez@gmail.com"));
+        participantes.add(new Participante("Ana Martínez", "22222222","anamartinez@gmail.com"));
 
         for (Participante p : participantes) {
             System.out.println("Participante registrado: " + p.getId());
@@ -44,7 +44,7 @@ public class Main {
 
         // ========== INSCRIBIR PARTICIPANTES EN CONCURSO ==========
         System.out.println("=== INSCRIBIENDO PARTICIPANTES ===\n");
-
+        NotificacionEmail notificacionEmail= new NotificacionEmail();
         // Inscripción en primer día (obtiene puntos)
         Inscripcion inscripcion1 = new Inscripcion(participantes.get(0), fechaInicio);
         try {
