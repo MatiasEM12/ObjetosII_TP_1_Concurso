@@ -18,7 +18,7 @@ public abstract class InscripcionDAO {
 
     public abstract void remove(Inscripcion inscripcion);
 
-    public abstract Inscripcion find(String codigo);
+    public abstract Inscripcion find(String id);
 
     public abstract List<Inscripcion> findAll();
 
