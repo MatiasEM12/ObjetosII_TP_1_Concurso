@@ -76,7 +76,7 @@ public class InscripcionDAOJDBC extends InscripcionDAO {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
                 String horaString = localDate.format(formatter);
-                String inscripto= horaString+", "+ rs.getString("id_partipante") +", "+rs.getString("id_concurso");
+                String inscripto= horaString+", "+ rs.getString("id_participante") +", "+rs.getString("id_concurso");
 
                 inscriptos.add(inscripto);
 

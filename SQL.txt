@@ -54,10 +54,12 @@ USE objetos_2_concurso;
 --
 
 CREATE TABLE `inscripciones` (
-  `id` varchar(10) NOT NULL,
-  `hora_inscripcion` DATE NOT NULL,
-  `id_concurso` varchar(10) NOT NULL,
-  `id_participante` varchar(10) NOT NULL
+    id VARCHAR(10) NOT NULL,
+    hora_inscripcion DATETIME NOT NULL,
+    id_concurso VARCHAR(10) NOT NULL,
+    id_participante VARCHAR(10) NOT NULL,
+    PRIMARY KEY (id)
+  );
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 

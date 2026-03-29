@@ -1,16 +1,23 @@
 import Entities.Inscripcion;
 import backend.InscripcionDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FakeInscripcionDAOJDBC extends InscripcionDAO {
 
+    List<String>inscriptos;
 
+    public FakeInscripcionDAOJDBC(){
+        this.inscriptos= new ArrayList<>();
+    }
 
 
     @Override
     public void create(Inscripcion inscripcion) {
 
+        if(inscripcion==null) throw new IllegalArgumentException("Inscripcion no puede ser nula");
+        inscriptos.add(inscripcion.toStringInscripto());
     }
 
     @Override
@@ -40,6 +47,6 @@ public class FakeInscripcionDAOJDBC extends InscripcionDAO {
 
     @Override
     public List<String> findAllInscriptos() {
-        return List.of();
+        return this.inscriptos;
     }
 }
