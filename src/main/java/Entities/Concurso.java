@@ -7,10 +7,14 @@ import java.util.Objects;
 
 public class Concurso {
 
+    private static int cont=0;
+
+    private final String  id;
     private String nombre;
     private ArrayList<Inscripcion> inscriptos;
     private LocalDate fechaInicioInscripcion;
     private LocalDate fechaFinInscripcion;
+
 
     public static final Integer PUNTOS_PRIMER_DIA = 10;
 
@@ -22,12 +26,31 @@ public class Concurso {
         validarFecha(fechaFinInscripcion);
         validarFechasInscripcion(fechaInicioInscripcion,fechaFinInscripcion);
 
+        cont++;
+        this.id= "C" + String.format("%05d", cont);
+
+
         this.nombre = nombre;
         this.inscriptos = new ArrayList<>();
         this.fechaInicioInscripcion = fechaInicioInscripcion;
         this.fechaFinInscripcion = fechaFinInscripcion;
     }
 
+    public Concurso(String id,String nombre, LocalDate fechaInicioInscripcion, LocalDate fechaFinInscripcion) {
+
+        validarNombre(nombre);
+        validarFecha(fechaInicioInscripcion);
+        validarFecha(fechaFinInscripcion);
+        validarFechasInscripcion(fechaInicioInscripcion,fechaFinInscripcion);
+        validarID(id);
+
+
+        this.id=id;
+        this.nombre = nombre;
+        this.inscriptos = new ArrayList<>();
+        this.fechaInicioInscripcion = fechaInicioInscripcion;
+        this.fechaFinInscripcion = fechaFinInscripcion;
+    }
 
 
     public void nuevaInscripcion(Inscripcion inscripcion) {
@@ -38,6 +61,7 @@ public class Concurso {
         if(estaInscripto(inscripcion.getParticipante()))  throw new IllegalArgumentException("El participante se encuentra inscripto");;
 
         this.inscriptos.add(inscripcion);
+        inscripcion.cargarConcurso(this);
         inscripcion.asignarInscripcion();
 
 
@@ -58,6 +82,10 @@ public class Concurso {
         return  inscriptos.stream().anyMatch(i -> i.getParticipante().equals(participante));
     }
 
+    public String getId() {
+        return id;
+    }
+
 
     //VALIDACIONES
     private void validarNombre(String nombre){
@@ -67,12 +95,13 @@ public class Concurso {
         if (fecha == null) throw new IllegalArgumentException("La fecha no puede ser nula.");
     }
     private void validarFechasInscripcion(LocalDate fechaInicio, LocalDate fechaFin){
-
+        validarFecha(fechaInicio);
+        validarFecha(fechaFin);
         if ( !fechaInicio.isBefore(fechaFin) ) throw new IllegalArgumentException("La fecha de inicio de inscripción debe ser anterior a la fecha de fin de inscripción.");
 
     }
     private void validarPeridoInscripcion(Inscripcion inscripcion){
-
+        validarInscripcion(inscripcion);
         if (inscripcion.getFechaInscripcion().isBefore(this.fechaInicioInscripcion) ||
                 inscripcion.getFechaInscripcion().isAfter(this.fechaFinInscripcion)){
 
@@ -81,11 +110,20 @@ public class Concurso {
         };
 
     }
+
+    public ArrayList<Inscripcion> getInscriptos() {
+        return inscriptos;
+    }
+
     private void validarInscripcion(Inscripcion inscripcion){
         if(inscripcion == null) throw new IllegalArgumentException("La inscripción no es válida o ya existe.");
     }
     private void validarParticipante (Participante participante){
         if(participante == null) throw new IllegalArgumentException("El participante no puede ser nulo.");
+
+    }
+    private void validarID( String id){
+        if(  id == null || id.trim().isEmpty()) throw new IllegalArgumentException("El ID del concurso no puede ser nulo o vacío.");
 
     }
 
