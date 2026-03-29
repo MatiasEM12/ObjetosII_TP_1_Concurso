@@ -16,8 +16,9 @@ public class Concurso {
     private ArrayList<Inscripcion> inscriptos;
     private LocalDate fechaInicioInscripcion;
     private LocalDate fechaFinInscripcion;
-
     private InscripcionDAO inscripcionDAO;
+
+
     public static final Integer PUNTOS_PRIMER_DIA = 10;
 
 
@@ -31,6 +32,7 @@ public class Concurso {
 
         cont++;
         this.id= "C" + String.format("%05d", cont);
+
 
         this.inscripcionDAO=inscripcionDAO;
         this.nombre = nombre;
@@ -66,6 +68,7 @@ public class Concurso {
         this.inscriptos.add(inscripcion);
         inscripcion.cargarConcurso(this);
         inscripcion.asignarInscripcion();
+        inscripcion.notificarInscripcion("Haz sido inscrito en el concurso :" + this.id +" - " +this.nombre);
 
 
         if(esInscriptoPrimerDia(inscripcion)) {

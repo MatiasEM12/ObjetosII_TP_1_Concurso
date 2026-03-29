@@ -13,7 +13,9 @@ public class Inscripcion {
     private Participante participante;
     private LocalDate fechaInscripcion;
 
-    public Inscripcion(Participante participante, LocalDate fechaInscripcion) {
+    private Notificador notificacion;
+
+    public Inscripcion(Participante participante, LocalDate fechaInscripcion,Notificador notificacion) {
 
         validarFechaInscripcion( fechaInscripcion);
         validarParticipante(participante);
@@ -21,6 +23,7 @@ public class Inscripcion {
         cont++;
         this.id= "I" + String.format("%05d", cont);
 
+        this.notificacion=notificacion;
         this.participante = participante;
         this.fechaInscripcion = fechaInscripcion;
 
@@ -99,4 +102,8 @@ public class Inscripcion {
     }
 
 
+    public void notificarInscripcion(String mensaje) {
+
+        notificacion.notificar(participante.getEmail(),mensaje);
+    }
 }

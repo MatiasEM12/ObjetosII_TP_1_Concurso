@@ -10,18 +10,19 @@ public class Participante {
     private final String id;
     private String nombre;
     private String dni;
+    private String email;
 
     private ArrayList<Puntaje> puntajes;
     private ArrayList<Inscripcion> inscripciones;
 
-    public Participante( String nombre, String dni) {
+    public Participante( String nombre, String dni,String email) {
 
         validarNombre(nombre);
         validarDni(dni);
         cont++;
         this.id= "P" + String.format("%05d", cont);
 
-
+        this.email=email;
         this.nombre = nombre;
         this.dni = dni;
         this.puntajes = new ArrayList<>();
@@ -88,6 +89,10 @@ public class Participante {
 
     public String getId(){
         return this.id;
+    }
+
+    public String getEmail(){
+        return this.email;
     }
     //VALIDACIONES
     private void validarNombre(String nombre){
