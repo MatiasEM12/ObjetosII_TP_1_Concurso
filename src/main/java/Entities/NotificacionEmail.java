@@ -35,7 +35,7 @@ public class NotificacionEmail implements Notificador{
         } catch (AddressException e) {
             throw new RuntimeException(e);
         } catch (MessagingException e) {
-            throw new RuntimeException("Error al envair elcorre"+e);
+            throw new RuntimeException("Error al envair el corre: "+e);
         }
     }
 

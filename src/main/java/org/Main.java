@@ -18,7 +18,7 @@ public class Main {
         try{
            inscriptosDao.truncarTabla();
         }catch (RuntimeException e){
-            System.out.println(e) ;
+            System.out.println("Error al limpiar tabla: " + e.getMessage()) ;
 
         }
 
