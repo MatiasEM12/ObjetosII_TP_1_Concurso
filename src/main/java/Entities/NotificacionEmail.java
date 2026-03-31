@@ -7,6 +7,7 @@ import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
+
 public class NotificacionEmail implements Notificador{
 
     private Session session;
@@ -26,8 +27,10 @@ public class NotificacionEmail implements Notificador{
             message.setFrom(new InternetAddress(origen));
             message.setRecipient(Message.RecipientType.TO,new InternetAddress(email));
 
-            message.setSubject("");
+            message.setSubject("Notificacion");
             message.setText(mensaje);
+            jakarta.mail.Transport.send(message);
+
             this.cantNotificaciones++;
         } catch (AddressException e) {
             throw new RuntimeException(e);

@@ -91,5 +91,21 @@ public class InscripcionDAOJDBC extends InscripcionDAO {
         return inscriptos;
     }
 
+    public void truncarTabla() {
+        final String SQL = "TRUNCATE TABLE inscripciones";
+
+        try (Connection conn=ConnectionManager.getConnection();
+             PreparedStatement st= conn.prepareStatement(SQL)) {
+
+            st.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally{
+            ConnectionManager.disconnect();
+        }
+    }
+
 
 }

@@ -23,4 +23,6 @@ public abstract class InscripcionDAO {
     public abstract List<Inscripcion> findAll();
 
     public abstract List<String> findAllInscriptos();
+
+    public abstract void truncarTabla() ;
 }

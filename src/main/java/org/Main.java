@@ -3,114 +3,95 @@ package org;
 import Entities.*;
 
 import backend.InscripcionDAOJDBC;
+import jakarta.mail.Authenticator;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) {
 
         var inscriptosDao= new InscripcionDAOJDBC();
 
-        List<String> inscripciones = new ArrayList<>();
+        try{
+           inscriptosDao.truncarTabla();
+        }catch (RuntimeException e){
+            System.out.println(e) ;
+
+        }
+
+
+
+        // provide account credentials
+        final String username = "7745afec1e364b";
+        final String password = "58c1826c0780a7";
+
+        String origen = "test@mailtrap.io";
+
+        // provide host address
+        String host = "sandbox.smtp.mailtrap.io";
+
+        // configure SMTP details
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+
+        // create the mail Session object
+        Session session = Session.getInstance(props,
+                new Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+
+
+
         // ========== CREAR CONCURSO ==========
         System.out.println("=== SISTEMA DE GESTIÓN DE CONCURSOS ===\n");
 
-        LocalDate fechaInicio = LocalDate.now().minusWeeks(1);
-        LocalDate fechaFin = LocalDate.now().plusWeeks(2);
-
-        Concurso concurso = new Concurso("Concurso de Objetos II", fechaInicio, fechaFin,inscriptosDao);
-
-        System.out.println("Concurso creado: " + concurso.getId());
-        System.out.println("Fecha de inscripción: " + fechaInicio + " a " + fechaFin + "\n");
-
+        var concurso = new Concurso("Concurso de Mecanica", LocalDate.now().minusWeeks(2),
+                LocalDate.now().plusWeeks(1),inscriptosDao);
 
         // ========== CREAR PARTICIPANTES ==========
         System.out.println("=== REGISTRANDO PARTICIPANTES ===\n");
 
-        ArrayList<Participante> participantes = new ArrayList<>();
+        var participante = new Participante("Jose Maria", "12345888"," test@mailtrap.io");
 
-        participantes.add(new Participante("Juan Pérez", "12345678","juanperez@gmail.com"));
-        participantes.add(new Participante("María García", "87654321","mariagarcia@gmail.com"));
-        participantes.add(new Participante("Carlos López", "11111111","carlosperez@gmail.com"));
-        participantes.add(new Participante("Ana Martínez", "22222222","anamartinez@gmail.com"));
 
-        for (Participante p : participantes) {
-            System.out.println("Participante registrado: " + p.getId());
-        }
-        System.out.println();
 
 
         // ========== INSCRIBIR PARTICIPANTES EN CONCURSO ==========
         System.out.println("=== INSCRIBIENDO PARTICIPANTES ===\n");
-        NotificacionEmail notificacionEmail= new NotificacionEmail();
-        // Inscripción en primer día (obtiene puntos)
-        Inscripcion inscripcion1 = new Inscripcion(participantes.get(0), fechaInicio);
-        try {
-            concurso.nuevaInscripcion(inscripcion1);
-            System.out.println(  participantes.get(0).getId() + " inscripto el primer día");
-            System.out.println("  Bonificación: 10 puntos otorgados");
-        } catch (Exception e) {
-            System.out.println("✗ Error: " + e.getMessage());
-        }
-        System.out.println();
 
-        // Inscripciones normales
-        for (int i = 1; i < participantes.size(); i++) {
-            Inscripcion inscripcion = new Inscripcion(participantes.get(i), LocalDate.now());
-            try {
-                concurso.nuevaInscripcion(inscripcion);
-                System.out.println( participantes.get(i).getId() + " inscripto exitosamente");
-            } catch (Exception e) {
-                System.out.println("✗ Error en inscripción: " + e.getMessage());
-            }
-        }
-        System.out.println();
-
+        NotificacionEmail notificador= new NotificacionEmail(session,origen);
+        var inscripcion = new Inscripcion(participante, LocalDate.now(),notificador);
+        concurso.nuevaInscripcion(inscripcion);
 
         // ========== AGREGAR PUNTAJES ADICIONALES ==========
+
         System.out.println("=== ASIGNANDO PUNTAJES ===\n");
 
-        participantes.get(0).agregarPuntos(50, concurso);
-        System.out.println( participantes.get(0).getId() + ": +50 puntos (Total: 60)");
+        participante.agregarPuntos(40,concurso);
 
-        participantes.get(1).agregarPuntos(35, concurso);
-        System.out.println( participantes.get(1).getId() + ": +35 puntos");
-
-        participantes.get(2).agregarPuntos(45, concurso);
-        System.out.println(participantes.get(2).getId() + ": +45 puntos");
-
-        participantes.get(3).agregarPuntos(40, concurso);
-        System.out.println( participantes.get(3).getId() + ": +40 puntos");
-        System.out.println();
-
-
-        // ========== GUARDAR INSCRIPCIONES EN ARCHIVO ==========
+        // ========== GUARDAR INSCRIPCIONES EN BASE DE DATOS ==========
         System.out.println("=== PERSISTENCIA DE DATOS ===\n");
 
+        System.out.println("Se realiza en la logica de negocio de Concurso\n");
 
+        // ========== NOTIFICAR INSCRIPCION ==========
+        System.out.println("=== NOTIFICACION AL PARTICIPANTE ===\n");
 
-
-        System.out.println("=== LISTADO DE INSCRIPTOS DESDE EL ARCHIVO ===\n");
-
-        inscripciones=inscriptosDao.findAllInscriptos();
-
-        if (inscripciones.isEmpty()) {
-            System.out.println("No hay inscripciones registradas");
-        } else {
-            for(String s : inscripciones){
-                System.out.println(s);
-            }
-        }
-        System.out.println();
-
+        System.out.println("Se realiza en la logica de negocio de Concurso-Inscripcion\n");
 
         // ========== RESUMEN FINAL ==========
-        System.out.println("=== RESUMEN FINAL ===\n");
-        System.out.println("Concurso: " + concurso.getId());
-        System.out.println("Participantes registrados: " + participantes.size());
-        System.out.println("Fecha límite de inscripción: " + fechaFin);
+        System.out.println("\n=== PROCESO FINALIZADO ===");
+        System.out.println("Cantidad de mails enviados: " + notificador.cantidadDeNotificaciones());
 
     }
 }
