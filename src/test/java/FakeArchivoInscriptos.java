@@ -3,12 +3,13 @@ import Entities.Inscripcion;
 
 import java.util.ArrayList;
 
-public class FakeArchivoInscriptos extends GestionArchivo<Inscripcion>  {
+public class FakeArchivoInscriptos implements GestionArchivo<Inscripcion>  {
 
+    String ruta;
     ArrayList<String> inscriptos;
 
     public FakeArchivoInscriptos(String ruta){
-        super(ruta);
+        this.ruta=ruta;
         inscriptos=new ArrayList<>();
     }
 

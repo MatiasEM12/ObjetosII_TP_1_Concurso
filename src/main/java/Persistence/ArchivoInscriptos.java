@@ -10,13 +10,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ArchivoInscriptos extends GestionArchivo<Inscripcion> {
+public class ArchivoInscriptos implements GestionArchivo<Inscripcion> {
 
     private File archivo;
 
 
     public ArchivoInscriptos(String ruta) {
-        super(ruta);
+
         this.archivo = new File(ruta);
     }
 
