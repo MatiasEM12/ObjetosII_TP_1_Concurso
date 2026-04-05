@@ -4,25 +4,23 @@ import Entities.Inscripcion;
 
 import java.util.List;
 
-public abstract class InscripcionDAO {
+public interface InscripcionDAO {
 
-    protected InscripcionDAO(){
 
-    }
 
-    public abstract void create(Inscripcion inscripcion);
+    public  void create(Inscripcion inscripcion);
 
-    public abstract void update(Inscripcion inscripcion);
+    public  void update(Inscripcion inscripcion);
 
-    public abstract void remove(String id);
+    public  void remove(String id);
 
-    public abstract void remove(Inscripcion inscripcion);
+    public  void remove(Inscripcion inscripcion);
 
-    public abstract Inscripcion find(String id);
+    public  Inscripcion find(String id);
 
-    public abstract List<Inscripcion> findAll();
+    public  List<Inscripcion> findAll();
 
-    public abstract List<String> findAllInscriptos();
+    public  List<String> findAllInscriptos();
 
-    public abstract void truncarTabla() ;
+    public void truncateTabla();
 }

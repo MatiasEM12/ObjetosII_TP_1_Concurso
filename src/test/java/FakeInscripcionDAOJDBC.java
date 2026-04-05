@@ -4,7 +4,7 @@ import backend.InscripcionDAO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FakeInscripcionDAOJDBC extends InscripcionDAO {
+public class FakeInscripcionDAOJDBC implements InscripcionDAO {
 
     List<String>inscriptos;
 
@@ -48,5 +48,10 @@ public class FakeInscripcionDAOJDBC extends InscripcionDAO {
     @Override
     public List<String> findAllInscriptos() {
         return this.inscriptos;
+    }
+
+    @Override
+    public void truncateTabla() {
+        this.inscriptos.clear();
     }
 }

@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InscripcionDAOJDBC extends InscripcionDAO {
+public class InscripcionDAOJDBC implements  InscripcionDAO {
     @Override
     public void create(Inscripcion inscripcion) {
         if(inscripcion==null)throw  new IllegalArgumentException("La inscripcion es nulla,no se puede persistir");
@@ -31,7 +31,7 @@ public class InscripcionDAOJDBC extends InscripcionDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally{
-            Backend.ConnectionManager.disconnect();
+            ConnectionManager.disconnect();
         }
     }
 
@@ -91,7 +91,7 @@ public class InscripcionDAOJDBC extends InscripcionDAO {
         return inscriptos;
     }
 
-    public void truncarTabla() {
+    public void truncateTabla() {
         final String SQL = "TRUNCATE TABLE inscripciones";
 
         try (Connection conn=ConnectionManager.getConnection();
