@@ -14,6 +14,13 @@ public class Main {
         var inscriptosDao= new InscripcionDAOJDBC();
 
         List<String> inscripciones = new ArrayList<>();
+
+        try {
+            inscriptosDao.truncateTabla();
+
+        } catch (RuntimeException e) {
+            System.out.println("Error al limpiar tabla: " + e.getMessage()) ;
+        }
         // ========== CREAR CONCURSO ==========
         System.out.println("=== SISTEMA DE GESTIÓN DE CONCURSOS ===\n");
 
