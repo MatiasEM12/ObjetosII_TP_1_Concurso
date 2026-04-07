@@ -146,4 +146,14 @@ public class Concurso {
     public int hashCode() {
         return Objects.hash(nombre, fechaInicioInscripcion, fechaFinInscripcion);
     }
+
+    @Override
+    public String toString() {
+        return "Concurso{" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", fechaInicioInscripcion=" + fechaInicioInscripcion +
+                ", fechaFinInscripcion=" + fechaFinInscripcion +
+                '}';
+    }
 }

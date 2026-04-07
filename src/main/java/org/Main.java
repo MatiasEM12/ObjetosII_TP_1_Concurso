@@ -16,7 +16,7 @@ public class Main {
         var inscriptosDao= new InscripcionDAOJDBC();
 
         try{
-           inscriptosDao.truncarTabla();
+           inscriptosDao.truncateTabla();
         }catch (RuntimeException e){
             System.out.println("Error al limpiar tabla: " + e.getMessage()) ;
 
@@ -58,12 +58,14 @@ public class Main {
         var concurso = new Concurso("Concurso de Mecanica", LocalDate.now().minusWeeks(2),
                 LocalDate.now().plusWeeks(1),inscriptosDao);
 
+        System.out.println("Concurso creado: " + concurso.toString());
+
         // ========== CREAR PARTICIPANTES ==========
         System.out.println("=== REGISTRANDO PARTICIPANTES ===\n");
 
         var participante = new Participante("Jose Maria", "12345888"," test@mailtrap.io");
 
-
+        System.out.println("Participante creado: " + participante.toString());
 
 
         // ========== INSCRIBIR PARTICIPANTES EN CONCURSO ==========
@@ -73,11 +75,14 @@ public class Main {
         var inscripcion = new Inscripcion(participante, LocalDate.now(),notificador);
         concurso.nuevaInscripcion(inscripcion);
 
+        System.out.println("Participante inscripto: " + participante.toString());
+
         // ========== AGREGAR PUNTAJES ADICIONALES ==========
 
         System.out.println("=== ASIGNANDO PUNTAJES ===\n");
 
         participante.agregarPuntos(40,concurso);
+        System.out.println("Puntaje adicional asignado al participante: 40" );
 
         // ========== GUARDAR INSCRIPCIONES EN BASE DE DATOS ==========
         System.out.println("=== PERSISTENCIA DE DATOS ===\n");
