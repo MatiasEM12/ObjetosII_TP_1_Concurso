@@ -1,13 +1,7 @@
-Implemente un sistema de Concursos, donde los participantes pueden inscribirse para participar de
-los mismos. El participante debe poder inscribirse a los concursos. El concurso acepta la
-inscripción solo dentro del rango de fecha de inscripción. El participante gana 10 puntos si se
-inscribe durante el primer día de abierta la inscripción. Dado un participante se puede conocer la
-cantidad de puntos ganados. Si un participante intenta inscribirse fuera de la fecha de inscripción
-se debe informar con un mensaje.
-Luego de implementar escriba los siguientes casos de test:
-1. Un participante se inscribe en un concurso
-2. Un participante se inscribe en un concurso el primer día de abierta la inscripción.
-3. Un participante intenta inscribirse fuera del rango de inscripción.
-Importante: Tener en cuenta el paso del tiempo en aquellos tests que verifican cuestiones
-relacionadas con la fecha.
-Lograr alta cobertura (mayor a 90%). Verifique si quedan funcionalidades sin testear.
+1) Sobre el ejercicio 1 del trabajo practico 1, se pide que cada vez que se inscriba un participante
+en un concurso se guarde en un archivo de texto, la fecha/hora de inscripción, el id del participante
+y el id del concurso, con el siguiente formato:
+dd/mm/yyyy, id_participante, id_concurso
+dd/mm/yyyy, id_participante, id_concurso
+dd/mm/yyyy, id_participante, id_concurso
+dd/mm/yyyy, id_participante, id_concurso

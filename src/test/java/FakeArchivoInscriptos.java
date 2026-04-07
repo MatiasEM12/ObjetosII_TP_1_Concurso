@@ -30,6 +30,11 @@ public class FakeArchivoInscriptos implements GestionArchivo<Inscripcion>  {
     }
 
     @Override
+    public void eliminarArchivo(String ruta) {
+        throw new IllegalArgumentException("eliminar fakeArchivoInscriptos no implementado");
+    }
+
+    @Override
     public Inscripcion buscar(String id) {
         throw new IllegalArgumentException("buscar por id fakeArchivoInscriptos no implementado");
     }

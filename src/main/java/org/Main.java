@@ -10,6 +10,13 @@ public class Main {
     public static void main(String[] args) {
         ArchivoInscriptos archivo = new ArchivoInscriptos("inscriptos.txt");
 
+        try{
+            archivo.eliminarArchivo("inscriptos.txt");
+        }catch (Exception e){
+            System.out.println("No se pudo eliminar el archivo, se continuará con el mismo");
+
+        }
+
         ArrayList<String> inscripciones = new ArrayList<>();
         // ========== CREAR CONCURSO ==========
         System.out.println("=== SISTEMA DE GESTIÓN DE CONCURSOS ===\n");
