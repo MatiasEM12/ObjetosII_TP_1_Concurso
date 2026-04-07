@@ -1,13 +1,5 @@
-Implemente un sistema de Concursos, donde los participantes pueden inscribirse para participar de
-los mismos. El participante debe poder inscribirse a los concursos. El concurso acepta la
-inscripción solo dentro del rango de fecha de inscripción. El participante gana 10 puntos si se
-inscribe durante el primer día de abierta la inscripción. Dado un participante se puede conocer la
-cantidad de puntos ganados. Si un participante intenta inscribirse fuera de la fecha de inscripción
-se debe informar con un mensaje.
-Luego de implementar escriba los siguientes casos de test:
-1. Un participante se inscribe en un concurso
-2. Un participante se inscribe en un concurso el primer día de abierta la inscripción.
-3. Un participante intenta inscribirse fuera del rango de inscripción.
-Importante: Tener en cuenta el paso del tiempo en aquellos tests que verifican cuestiones
-relacionadas con la fecha.
-Lograr alta cobertura (mayor a 90%). Verifique si quedan funcionalidades sin testear.
+3)
+Ahora, en lugar de generar un archivo tenemos que almacenar los registros del ejercicio 1 y 2 en
+una tabla de una base de datos relacional.
+Desde un Main, se debe poder instanciar los modelos correspondientes (por ejemplo, Concurso o
+Pedido), para que registre la inscripción o la venta en un archivo de texto o en la base de datos.
