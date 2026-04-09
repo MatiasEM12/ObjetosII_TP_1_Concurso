@@ -73,7 +73,7 @@ public class Participante {
         if (puntaje == null) throw new RuntimeException("El participante no tiene puntaje para este concurso.");
 
 
-        return puntaje.getPuntos();
+        return puntaje.puntos();
     }
 
     public void agregarInscripcion(Inscripcion inscripcion){
@@ -86,7 +86,7 @@ public class Participante {
     }
 
 
-    public String getId(){
+    public String id(){
         return this.id;
     }
     //VALIDACIONES
@@ -102,7 +102,7 @@ public class Participante {
 
     private void validarInscripcion(Inscripcion inscripcion){
         if(inscripcion == null) throw new RuntimeException("La inscripción no puede ser nula.");
-        if(!inscripcion.getParticipante().equals(this)) throw new RuntimeException("La inscripción no corresponde a este participante.");
+        if(!inscripcion.participante().equals(this)) throw new RuntimeException("La inscripción no corresponde a este participante.");
         if(inscripciones.contains(inscripcion)) throw new RuntimeException("El participante ya tiene esta inscripción.");
     }
 

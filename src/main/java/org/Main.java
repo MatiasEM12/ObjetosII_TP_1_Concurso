@@ -26,7 +26,7 @@ public class Main {
         
         Concurso concurso = new Concurso("Concurso de Objetos II", fechaInicio, fechaFin,archivo);
         
-        System.out.println("Concurso creado: " + concurso.getId());
+        System.out.println("Concurso creado: " + concurso.id());
         System.out.println("Fecha de inscripción: " + fechaInicio + " a " + fechaFin + "\n");
         
         
@@ -41,7 +41,7 @@ public class Main {
         participantes.add(new Participante("Ana Martínez", "22222222"));
         
         for (Participante p : participantes) {
-            System.out.println("Participante registrado: " + p.getId());
+            System.out.println("Participante registrado: " + p.id());
         }
         System.out.println();
         
@@ -53,7 +53,7 @@ public class Main {
         Inscripcion inscripcion1 = new Inscripcion(participantes.get(0), fechaInicio);
         try {
             concurso.nuevaInscripcion(inscripcion1);
-            System.out.println(  participantes.get(0).getId() + " inscripto el primer día");
+            System.out.println(  participantes.get(0).id() + " inscripto el primer día");
             System.out.println("  Bonificación: 10 puntos otorgados");
         } catch (Exception e) {
             System.out.println("✗ Error: " + e.getMessage());
@@ -65,7 +65,7 @@ public class Main {
             Inscripcion inscripcion = new Inscripcion(participantes.get(i), LocalDate.now());
             try {
                 concurso.nuevaInscripcion(inscripcion);
-                System.out.println( participantes.get(i).getId() + " inscripto exitosamente");
+                System.out.println( participantes.get(i).id() + " inscripto exitosamente");
             } catch (Exception e) {
                 System.out.println("✗ Error en inscripción: " + e.getMessage());
             }
@@ -77,16 +77,16 @@ public class Main {
         System.out.println("=== ASIGNANDO PUNTAJES ===\n");
         
         participantes.get(0).agregarPuntos(50, concurso);
-        System.out.println( participantes.get(0).getId() + ": +50 puntos (Total: 60)");
+        System.out.println( participantes.get(0).id() + ": +50 puntos (Total: 60)");
         
         participantes.get(1).agregarPuntos(35, concurso);
-        System.out.println( participantes.get(1).getId() + ": +35 puntos");
+        System.out.println( participantes.get(1).id() + ": +35 puntos");
         
         participantes.get(2).agregarPuntos(45, concurso);
-        System.out.println(participantes.get(2).getId() + ": +45 puntos");
+        System.out.println(participantes.get(2).id() + ": +45 puntos");
         
         participantes.get(3).agregarPuntos(40, concurso);
-        System.out.println( participantes.get(3).getId() + ": +40 puntos");
+        System.out.println( participantes.get(3).id() + ": +40 puntos");
         System.out.println();
         
         
@@ -112,7 +112,7 @@ public class Main {
 
         // ========== RESUMEN FINAL ==========
         System.out.println("=== RESUMEN FINAL ===\n");
-        System.out.println("Concurso: " + concurso.getId());
+        System.out.println("Concurso: " + concurso.id());
         System.out.println("Participantes registrados: " + participantes.size());
         System.out.println("Fecha límite de inscripción: " + fechaFin);
 

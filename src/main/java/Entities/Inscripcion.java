@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class Inscripcion {
 
     private static int cont=0;
-    private DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 
     private final String id;
     private Concurso concurso;
@@ -52,11 +52,11 @@ public class Inscripcion {
         this.participante.agregarInscripcion(this);
     }
 
-    public LocalDate getFechaInscripcion() {
+    public LocalDate fechaInscripcion() {
         return fechaInscripcion;
     }
 
-    public Participante getParticipante() {
+    public Participante participante() {
         return participante;
     }
 
@@ -80,9 +80,10 @@ public class Inscripcion {
     }
 
     public String  toStringInscripto() {
-        return this.getFechaInscripcion().format(formato)
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.fechaInscripcion().format(formato)
                 + ", " + this.participante.getId()
-                + ", " + this.concurso.getId();
+                + ", " + this.concurso.id();
     }
 
 
