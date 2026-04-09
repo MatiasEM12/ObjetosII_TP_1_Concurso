@@ -82,7 +82,7 @@ public class Inscripcion {
     public String  toStringInscripto() {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return this.fechaInscripcion().format(formato)
-                + ", " + this.participante.getId()
+                + ", " + this.participante.id()
                 + ", " + this.concurso.id();
     }
 
