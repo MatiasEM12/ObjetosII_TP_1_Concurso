@@ -63,7 +63,7 @@ public class Concurso {
         validarInscripcion(inscripcion);
         validarPeridoInscripcion(inscripcion);
 
-        if(estaInscripto(inscripcion.getParticipante()))  throw new IllegalArgumentException("El participante se encuentra inscripto");;
+        if(estaInscripto(inscripcion.participante()))  throw new IllegalArgumentException("El participante se encuentra inscripto");;
 
         this.inscriptos.add(inscripcion);
         inscripcion.cargarConcurso(this);
@@ -73,7 +73,7 @@ public class Concurso {
 
         if(esInscriptoPrimerDia(inscripcion)) {
             inscripcion.agregarPuntos(PUNTOS_PRIMER_DIA,this);
-            System.out.println("Inscripto el primer dia");
+
         }
 
         this.inscripcionDAO.create(inscripcion);
@@ -82,18 +82,18 @@ public class Concurso {
     private Boolean esInscriptoPrimerDia(Inscripcion inscripcion){
         validarInscripcion(inscripcion);
 
-        return inscripcion.getFechaInscripcion().isEqual(this.fechaInicioInscripcion);
+        return inscripcion.fechaInscripcion().isEqual(this.fechaInicioInscripcion);
     }
 
     public boolean estaInscripto(Participante participante) {
         validarParticipante(participante);
-        return  inscriptos.stream().anyMatch(i -> i.getParticipante().equals(participante));
+        return  inscriptos.stream().anyMatch(i -> i.participante().equals(participante));
     }
 
-    public String getId() {
+    public String id() {
         return id;
     }
-    public ArrayList<Inscripcion> getInscriptos() {
+    public ArrayList<Inscripcion> inscriptos() {
         return inscriptos;
     }
 
@@ -112,8 +112,8 @@ public class Concurso {
     }
     private void validarPeridoInscripcion(Inscripcion inscripcion){
         validarInscripcion(inscripcion);
-        if (inscripcion.getFechaInscripcion().isBefore(this.fechaInicioInscripcion) ||
-                inscripcion.getFechaInscripcion().isAfter(this.fechaFinInscripcion)){
+        if (inscripcion.fechaInscripcion().isBefore(this.fechaInicioInscripcion) ||
+                inscripcion.fechaInscripcion().isAfter(this.fechaFinInscripcion)){
 
             throw new IllegalArgumentException("La inscripción no se encuentra dentro del período permitido.");
 

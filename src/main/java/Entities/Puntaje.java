@@ -13,7 +13,7 @@ public class Puntaje {
         validarPuntos(puntos);
 
         cont++;
-        this.id= "PJ" + String.format("%05d", cont);
+        this.id= "PTJ" + String.format("%05d", cont);
 
         this.concurso= concurso;
         this.puntos = puntos;
@@ -41,7 +41,7 @@ public class Puntaje {
 
     }
 
-    public Integer getPuntos() {
+    public Integer puntos() {
         return puntos;
     }
 

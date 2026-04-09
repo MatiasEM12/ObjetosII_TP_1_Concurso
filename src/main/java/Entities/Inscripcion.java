@@ -55,11 +55,11 @@ public class Inscripcion {
         this.participante.agregarInscripcion(this);
     }
 
-    public LocalDate getFechaInscripcion() {
+    public LocalDate fechaInscripcion() {
         return fechaInscripcion;
     }
 
-    public Participante getParticipante() {
+    public Participante participante() {
         return participante;
     }
 
@@ -69,16 +69,16 @@ public class Inscripcion {
         this.concurso=concurso;
     }
 
-    public String getId() {
+    public String id() {
         return id;
     }
 
-    public String getConcursoId(){
-        return this.concurso.getId();
+    public String concursoId(){
+        return this.concurso.id();
     }
 
-    public String getParticipanteId(){
-        return this.participante.getId();
+    public String participanteId(){
+        return this.participante.id();
     }
 
     //VALIDACIONES
@@ -96,14 +96,14 @@ public class Inscripcion {
     }
 
     public String  toStringInscripto() {
-        return this.getFechaInscripcion().format(formato)
-                + ", " + this.participante.getId()
-                + ", " + this.concurso.getId();
+        return this.fechaInscripcion().format(formato)
+                + ", " + this.participante.id()
+                + ", " + this.concurso.id();
     }
 
 
     public void notificarInscripcion(String mensaje) {
 
-        notificacion.notificar(participante.getEmail(),mensaje);
+        notificacion.notificar(participante.email(),mensaje);
     }
 }

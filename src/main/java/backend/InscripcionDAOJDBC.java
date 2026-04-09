@@ -19,12 +19,12 @@ public class InscripcionDAOJDBC implements  InscripcionDAO {
         try(Connection conn=ConnectionManager.getConnection();
             PreparedStatement st= conn.prepareStatement(SQL)){
 
-            Date sqlDate = Date.valueOf(inscripcion.getFechaInscripcion());
+            Date sqlDate = Date.valueOf(inscripcion.fechaInscripcion());
 
-            st.setString(1,inscripcion.getId());
+            st.setString(1,inscripcion.id());
             st.setDate(2,sqlDate);
-            st.setString(3,inscripcion.getConcursoId());
-            st.setString(4,inscripcion.getParticipanteId());
+            st.setString(3,inscripcion.concursoId());
+            st.setString(4,inscripcion.participanteId());
             st.executeUpdate();
 
 
