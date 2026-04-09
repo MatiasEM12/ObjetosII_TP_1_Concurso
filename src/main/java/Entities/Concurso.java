@@ -70,7 +70,6 @@ public class Concurso {
 
         if(esInscriptoPrimerDia(inscripcion)) {
             inscripcion.agregarPuntos(PUNTOS_PRIMER_DIA,this);
-            System.out.println("Inscripto el primer dia");
         }
 
         this.inscripcionDAO.create(inscripcion);
@@ -78,7 +77,6 @@ public class Concurso {
 
     private Boolean esInscriptoPrimerDia(Inscripcion inscripcion){
         validarInscripcion(inscripcion);
-
         return inscripcion.getFechaInscripcion().isEqual(this.fechaInicioInscripcion);
     }
 
@@ -87,10 +85,10 @@ public class Concurso {
         return  inscriptos.stream().anyMatch(i -> i.getParticipante().equals(participante));
     }
 
-    public String getId() {
+    public String id() {
         return id;
     }
-    public ArrayList<Inscripcion> getInscriptos() {
+    public ArrayList<Inscripcion> Inscriptos() {
         return inscriptos;
     }
 
