@@ -55,7 +55,7 @@ public class Main {
         // ========== CREAR CONCURSO ==========
         System.out.println("=== SISTEMA DE GESTIÓN DE CONCURSOS ===\n");
 
-        var concurso = new Concurso("Concurso de Mecanica", LocalDate.now().minusWeeks(2),
+        var concurso = new ConcursoBase("Concurso de Mecanica", LocalDate.now().minusWeeks(2),
                 LocalDate.now().plusWeeks(1),inscriptosDao);
 
         System.out.println("Concurso creado: " + concurso.toString());

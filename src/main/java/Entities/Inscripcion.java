@@ -9,7 +9,7 @@ public class Inscripcion {
     private DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final String id;
-    private Concurso concurso;
+    private ConcursoBase concursoBase;
     private Participante participante;
     private LocalDate fechaInscripcion;
 
@@ -28,15 +28,15 @@ public class Inscripcion {
         this.fechaInscripcion = fechaInscripcion;
 
     }
-    public Inscripcion(String id, Participante participante, LocalDate fechaInscripcion,Concurso concurso) {
+    public Inscripcion(String id, Participante participante, LocalDate fechaInscripcion, ConcursoBase concursoBase) {
 
         validarFechaInscripcion( fechaInscripcion);
         validarParticipante(participante);
         validarID(id);
-        validarConcurso(concurso);
+        validarConcurso(concursoBase);
 
         this.id=id;
-        this.concurso=concurso;
+        this.concursoBase = concursoBase;
         this.participante = participante;
         this.fechaInscripcion = fechaInscripcion;
 
@@ -44,10 +44,10 @@ public class Inscripcion {
 
 
 
-    public void agregarPuntos(Integer puntosPrimerDia, Concurso concurso) {
+    public void agregarPuntos(Integer puntosPrimerDia, ConcursoBase concursoBase) {
 
 
-        this.participante.agregarPuntos(puntosPrimerDia, concurso);
+        this.participante.agregarPuntos(puntosPrimerDia, concursoBase);
 
     }
     public void asignarInscripcion() {
@@ -64,9 +64,9 @@ public class Inscripcion {
     }
 
 
-    public void cargarConcurso(Concurso concurso){
-        validarConcurso(concurso);
-        this.concurso=concurso;
+    public void cargarConcurso(ConcursoBase concursoBase){
+        validarConcurso(concursoBase);
+        this.concursoBase = concursoBase;
     }
 
     public String id() {
@@ -74,7 +74,7 @@ public class Inscripcion {
     }
 
     public String concursoId(){
-        return this.concurso.id();
+        return this.concursoBase.id();
     }
 
     public String participanteId(){
@@ -88,8 +88,8 @@ public class Inscripcion {
     private void validarFechaInscripcion(LocalDate fechaInscripcion){
         if(fechaInscripcion == null) throw new RuntimeException("La fecha de inscripción no puede ser nula.");
     }
-    private void validarConcurso(Concurso concurso){
-        if( concurso == null) throw new RuntimeException("El concurso no puede ser nulo.");
+    private void validarConcurso(ConcursoBase concursoBase){
+        if( concursoBase == null) throw new RuntimeException("El concurso no puede ser nulo.");
     }
     private void validarID(String id){
         if( id == null || id.trim().isEmpty()) throw new RuntimeException("El ID de la Inscripcion no puede ser nulo o vacío.");
@@ -98,7 +98,7 @@ public class Inscripcion {
     public String  toStringInscripto() {
         return this.fechaInscripcion().format(formato)
                 + ", " + this.participante.id()
-                + ", " + this.concurso.id();
+                + ", " + this.concursoBase.id();
     }
 
 

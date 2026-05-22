@@ -45,10 +45,10 @@ public class Participante {
     }
 
 
-    public void agregarPuntos(Integer puntos, Concurso concurso) {
+    public void agregarPuntos(Integer puntos, ConcursoBase concursoBase) {
 
         Puntaje puntajeExistente = puntajes.stream()
-                .filter(p -> p.perteneceA(concurso))
+                .filter(p -> p.perteneceA(concursoBase))
                 .findFirst()
                 .orElse(null);
 
@@ -56,18 +56,18 @@ public class Participante {
             puntajeExistente.agregarPuntos(puntos);
         } else {
 
-            if( !estaInscripto(concurso)) throw new RuntimeException("El participante no está inscripto en el concurso.");
+            if( !estaInscripto(concursoBase)) throw new RuntimeException("El participante no está inscripto en el concurso.");
 
-            Puntaje nuevoPuntaje = new Puntaje(concurso, puntos);
+            Puntaje nuevoPuntaje = new Puntaje(concursoBase, puntos);
             puntajes.add(nuevoPuntaje);
         }
 
 
     }
 
-    public Integer obtenerPuntaje(Concurso concurso) {
+    public Integer obtenerPuntaje(ConcursoBase concursoBase) {
         Puntaje puntaje = puntajes.stream()
-                .filter(p -> p.perteneceA(concurso))
+                .filter(p -> p.perteneceA(concursoBase))
                 .findFirst()
                 .orElse(null);
 
@@ -82,8 +82,8 @@ public class Participante {
         this.inscripciones.add(inscripcion);
     }
 
-    public boolean estaInscripto(Concurso concurso) {
-        return concurso.estaInscripto(this);
+    public boolean estaInscripto(ConcursoBase concursoBase) {
+        return concursoBase.estaInscripto(this);
     }
 
 

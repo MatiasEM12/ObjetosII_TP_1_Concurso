@@ -1,2 +1,2 @@
 4) De forma similar a como implementó lo anterior, cada vez que se registre una persona en un
-concurso, enviarle un email. Para ello utilice mail trap (ayuda: https://mailtrap.io/blog/sendingemail-using-java/#What-is-the-most-popular-option-for-sending-emails-using-Java).
+concursoBase, enviarle un email. Para ello utilice mail trap (ayuda: https://mailtrap.io/blog/sendingemail-using-java/#What-is-the-most-popular-option-for-sending-emails-using-Java).

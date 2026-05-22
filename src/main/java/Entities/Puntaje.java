@@ -4,27 +4,27 @@ public class Puntaje {
     private static int cont=0;
 
     private final String id;
-    private Concurso concurso;
+    private ConcursoBase concursoBase;
     private Integer puntos;
 
-    public Puntaje(Concurso concurso, Integer puntos) {
+    public Puntaje(ConcursoBase concursoBase, Integer puntos) {
 
-        validarConcurso(concurso);
+        validarConcurso(concursoBase);
         validarPuntos(puntos);
 
         cont++;
         this.id= "PTJ" + String.format("%05d", cont);
 
-        this.concurso= concurso;
+        this.concursoBase = concursoBase;
         this.puntos = puntos;
     }
-    public Puntaje(String id,Concurso concurso, Integer puntos) {
+    public Puntaje(String id, ConcursoBase concursoBase, Integer puntos) {
 
-        validarConcurso(concurso);
+        validarConcurso(concursoBase);
         validarPuntos(puntos);
 
         this.id=id;
-        this.concurso= concurso;
+        this.concursoBase = concursoBase;
         this.puntos = puntos;
     }
 
@@ -35,9 +35,9 @@ public class Puntaje {
         this.puntos += puntos;
     }
 
-    public Boolean perteneceA(Concurso consurso){
+    public Boolean perteneceA(ConcursoBase consurso){
 
-        return this.concurso.equals(concurso);
+        return this.concursoBase.equals(concursoBase);
 
     }
 
@@ -46,8 +46,8 @@ public class Puntaje {
     }
 
     //VALIDACIONES
-    private void validarConcurso(Concurso concurso) {
-        if (concurso == null ) throw new IllegalArgumentException("El concurso no puede ser nulo.");
+    private void validarConcurso(ConcursoBase concursoBase) {
+        if (concursoBase == null ) throw new IllegalArgumentException("El concurso no puede ser nulo.");
     }
 
     private void validarPuntos(Integer puntos) {
