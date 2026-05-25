@@ -55,8 +55,15 @@ public class Main {
         // ========== CREAR CONCURSO ==========
         System.out.println("=== SISTEMA DE GESTIÓN DE CONCURSOS ===\n");
 
-        var concurso = new ConcursoBase("Concurso de Mecanica", LocalDate.now().minusWeeks(2),
-                LocalDate.now().plusWeeks(1),inscriptosDao);
+
+        var concursoBase = new ConcursoBase(
+                "Concurso de Mecanica",
+                LocalDate.now().minusWeeks(2),
+                LocalDate.now().plusWeeks(1),
+                inscriptosDao
+        );
+
+        Concurso concurso = new ConcursoNotificacion(concursoBase);
 
         System.out.println("Concurso creado: " + concurso.toString());
 
@@ -81,7 +88,7 @@ public class Main {
 
         System.out.println("=== ASIGNANDO PUNTAJES ===\n");
 
-        participante.agregarPuntos(40,concurso);
+        participante.agregarPuntos(40,concursoBase);
         System.out.println("Puntaje adicional asignado al participante: 40" );
 
         // ========== GUARDAR INSCRIPCIONES EN BASE DE DATOS ==========

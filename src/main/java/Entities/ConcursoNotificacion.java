@@ -22,4 +22,5 @@ public class ConcursoNotificacion implements Concurso{
     public String baseMensaje() {
         return this.concurso.baseMensaje();
     }
+
 }
